@@ -27,7 +27,7 @@ print(math.pi)
 # Napier's Constant
 print(math.e)
 
-# Natural logarithm function (Ln function with base e ~ 2.71828)
+# Natural logarithm function [Logarithm function with base e(ln function) ~ 2.71828]
 napc = math.e
 print(math.log(napc))
 
