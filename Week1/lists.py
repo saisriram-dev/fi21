@@ -49,7 +49,9 @@ print(fruits)
 
 # Extend list
 more_fruits = ["kiwi", "lemon"]
-fruits.extend(more_fruits)
+final_fruits = fruits.extend(more_fruits)
+# The 'final_fruits' list gets assigned the value 'None'.
+# And the 'fruits' list gets extended with the 'more_fruits' list.
 print(fruits)
 
 # Sort list
