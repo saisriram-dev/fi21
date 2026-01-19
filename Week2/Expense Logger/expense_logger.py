@@ -11,9 +11,9 @@ file_path = "C:/Users/P SAI SRI RAM/OneDrive/Desktop/fi21/Week2/Expense Logger/e
 
 with open(file_path, "r") as file:
     lines = [line.rstrip("\n") for line in file.readlines()] # file.readlines() gives a list as output
-    lines = [int(line) for line in lines]
+    lines = [int(line) for line in lines] # Converting each item in the list to integer type
     print(lines)
-    
+
     total_expense = sum(lines)
     average_expense = total_expense / len(lines)
     print(f"Total expense: {total_expense}")
