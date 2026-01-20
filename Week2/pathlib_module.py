@@ -17,7 +17,10 @@ base.mkdir(exist_ok=True)
 The exist_ok=True parameter is used to prevent an error if the folder already exists."""
 # images = base / "images"
 # images.mkdir(exist_ok=True) # This is one method to create a subfolder
-(base/"images").mkdir(exist_ok=True) # This is another method to create a subfolder
+# Always assign the subfolder to a variable only then can you do operations on the sub-folder
+# like creating files and stuff using the variable name
+images = (base/"images") # This is another method to create a subfolder
+images.mkdir(exist_ok=True)
 
 # Checking if something exists
 # This is the first method
