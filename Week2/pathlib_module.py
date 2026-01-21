@@ -8,12 +8,13 @@ base = Path("data") # This line converts the string "data" into a Path object
 # base now represents the path to the data folder in the current working directory because we are running the script from the root directory
 
 # Creating a folder
-"""This line creates a folder called "data" in the current working directory.
+"""This line creates a folder called "data" in the current working directory i.e, fi21 not Week2 
+because we are running the script from the root directory.
 The exist_ok=True parameter is used to prevent an error if the folder already exists."""
 base.mkdir(exist_ok=True) 
 
 # Creating subfolders
-"""This line creates a folder called "test" inside the "data" folder.
+"""This line creates a folder called "images" inside the "data" folder.
 The exist_ok=True parameter is used to prevent an error if the folder already exists."""
 # images = base / "images"
 # images.mkdir(exist_ok=True) # This is one method to create a subfolder
