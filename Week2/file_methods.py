@@ -12,7 +12,7 @@ with open(file_path1, "w") as file:
 # If we run the program 2 times the content will be added twice
 # However as the content is added twice there will be no spacing between the content
 # So to add spacing we have to use \n or new line
-# I ran this program 3 times so the content was added 3 times
+# I ran this program 6 times so the content was added 3 times
 file_path2 = "C:/Users/P SAI SRI RAM/OneDrive/Desktop/fi21/Week2/names.txt"
 with open(file_path2, "a") as file:
     file.write("\nMy name is P SAI SRI RAM")
@@ -26,6 +26,8 @@ with open(file_path3, "r") as file:
 
 # Looping through a file
 with open(file_path3, "r") as file:
+    content = file.readlines()
+    print(content) # This will return a list of each line of the text document including the new line characters
     for line in file: # This will print each line of the text document
         print(line)
 
