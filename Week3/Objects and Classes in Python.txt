@@ -1,0 +1,39 @@
+Objects and Classes in Python
+
+Objects = A bundle of related attributes and methods.
+        Attributes can be thought of as "variables".
+        A method is a "function" that belongs within an object.
+        Simply what objects have = Attributes and what they can do = Methods.
+Examples: 
+        1. A phone: 
+                    Attributes:
+                        Version = 13
+                        Price = $599.99
+                        is_On = True or False etc.
+                    Methods:
+                        def is_call
+                        def take_pic
+                        def_endcall etc.
+
+        2. A cup:
+                    Attributes:
+                        is_Hot = True or False
+                        liquid = "Coffee" / "Tea" and many more
+                        is_empty = True or False etc.
+                    Methods:
+                        def fill_cup
+                        def empty_cup
+                        def drink_cup
+
+        2. A book:
+                    Attributes:
+                        is_open = True or False
+                        pages = 310
+                        title = "The Hobbit"
+                    Methods:
+                        def open_book()
+                        def close_book()
+                        def read_book()
+
+Classes = We need to use a class to create many objects.
+	  A class is like a blueprint which is used to design the structure and layout of an object.
