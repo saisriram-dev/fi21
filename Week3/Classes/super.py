@@ -11,7 +11,7 @@ class Shape:
 
 class Circle(Shape):
     # As we are using another constructor it will override the parent's constructor i.e, we won't be able to access the parent's attributes
-    # So we have to recreate the filled and radius attributes using self.filled = filled etc.,
+    # So we have to recreate the filled and color attributes using self.filled = filled etc.,
     # So we need to re-write code. So, instead of it we could use super().__init__(color, filled) to get the parent's constructor and use it's attributes
     def __init__(self, color, filled, radius):
         super().__init__(color, filled)
