@@ -55,4 +55,5 @@ for key, value in items: # Same as for key, value in capitals.items():
     print(f"{value} is the capital of {key}.")
 
 # Clear method
+# This method removes all the key-value pairs from the dictionary and makes it empty
 capitals.clear()
