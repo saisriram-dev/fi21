@@ -52,3 +52,19 @@ def search_linked_list(head, target):
     return False
 print(f"Is 3 in the linked list? {search_linked_list(Head, 3)}")
 print(f"Is 5 in the linked list? {search_linked_list(Head, 5)}")
+
+# Inserting a new node at the head of the linked list - O(1)
+def insert_at_head(head, value):
+    new_node = SinglyLinkedNode(value)
+    new_node.next_node = head
+    return new_node
+new_Head = insert_at_head(Head, 0)
+print(f"The linked list after inserting at head is: {display_linked_list(new_Head)}")
+
+# Inserting a new node at the tail of the linked list - O(1)
+def insert_at_tail(tail, value):
+    new_node = SinglyLinkedNode(value)
+    tail.next_node = new_node
+    return new_node
+new_Tail = insert_at_tail(C, 8)
+print(f"The linked list after inserting at tail is: {display_linked_list(new_Head)}")
