@@ -44,3 +44,47 @@ def traverse_backward(tail):
         curr = curr.prev
     return " <-> ".join(elements)
 print("Backward Traversal: ", traverse_backward(Third))
+
+# Inserting a new node at the head of the list
+def insert_at_head(head, value):
+    new_node = DoublyNode(value)
+    new_node.next = head
+    if head is not None: # If the list is not empty, set the previous pointer of the old head to the new node
+        head.prev = new_node
+    return new_node
+
+# Inserting a new node at the tail of the list
+def insert_at_tail(tail, value):
+    new_node = DoublyNode(value)
+    new_node.prev = tail
+    if tail is not None: # If the list is not empty, set the next pointer of the old tail to the new node
+        tail.next = new_node
+    return new_node
+
+# Inserting at a specific position in the list (zero-indexed)
+def insert_at_position(head, position, value):
+
+    if position == 0:
+        return insert_at_head(head, value)
+
+    new_node = DoublyNode(value)
+
+    curr = head
+    for _ in range(position - 1):
+        if curr is None:
+            raise IndexError("Position out of bounds")
+        curr = curr.next
+
+    if curr is None:
+        raise IndexError("Position out of bounds")
+
+    # link new node
+    new_node.next = curr.next
+    new_node.prev = curr
+
+    if curr.next is not None:
+        curr.next.prev = new_node
+
+    curr.next = new_node
+
+    return head

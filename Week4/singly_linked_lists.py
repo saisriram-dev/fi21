@@ -68,3 +68,22 @@ def insert_at_tail(tail, value):
     return new_node
 new_Tail = insert_at_tail(C, 8)
 print(f"The linked list after inserting at tail is: {display_linked_list(new_Head)}")
+
+# Inserting a new node at a specific position in the linked list (zero-indexed) - O(n)
+def insert_at_position(head, position, value):
+    new_node = SinglyLinkedNode(value)
+    if position == 0:
+        new_node.next_node = head
+        return new_node
+    curr = head
+
+    for _ in range(position - 1):
+        if curr is None:
+            raise IndexError("Position out of bounds")
+        curr = curr.next_node
+
+    new_node.next_node = curr.next_node
+    curr.next_node = new_node
+    return head
+new_Head = insert_at_position(new_Head, 2, 4)
+print(f"The linked list after inserting at position is: {display_linked_list(new_Head)}")
