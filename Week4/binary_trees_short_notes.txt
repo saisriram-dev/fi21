@@ -1,0 +1,110 @@
+# Binary Trees and DFS (Python) – Short Notes
+
+## 1. Binary Tree Basics
+
+A Binary Tree is a hierarchical data structure where each node has at most two children:
+
+* Left Child
+* Right Child
+
+### Node Structure in Python
+
+class Node:
+def **init**(self, data):
+self.data = data
+self.left = None
+self.right = None
+
+---
+
+## 2. Types of Binary Trees
+
+* Full Binary Tree: Every node has 0 or 2 children
+* Complete Binary Tree: All levels filled except possibly last
+* Perfect Binary Tree: All levels completely filled
+* Binary Search Tree (BST): Left < Root < Right
+
+---
+
+## 3. Tree Traversal
+
+Traversal means visiting all nodes.
+
+### DFS (Depth First Search)
+
+DFS explores one branch fully before moving to another.
+
+Types of DFS:
+
+1. Inorder (Left → Root → Right)
+2. Preorder (Root → Left → Right)
+3. Postorder (Left → Right → Root)
+
+---
+
+## 4. DFS Implementations in Python
+
+### Inorder Traversal
+
+def inorder(root):
+if root:
+inorder(root.left)
+print(root.data, end=" ")
+inorder(root.right)
+
+### Preorder Traversal
+
+def preorder(root):
+if root:
+print(root.data, end=" ")
+preorder(root.left)
+preorder(root.right)
+
+### Postorder Traversal
+
+def postorder(root):
+if root:
+postorder(root.left)
+postorder(root.right)
+print(root.data, end=" ")
+
+---
+
+## 5. Time and Space Complexity
+
+* Time Complexity: O(n) → each node visited once
+* Space Complexity: O(h) → recursion stack (h = height)
+
+---
+
+## 6. Key Points
+
+* Trees are recursive structures
+* DFS uses recursion or stack
+* Inorder traversal of BST gives sorted output
+* Preorder is useful for copying tree
+* Postorder is useful for deletion
+
+---
+
+## 7. Example Tree
+
+```
+    10
+   /  \
+  5    20
+ / \     \
+3   7     30
+```
+
+DFS Outputs:
+
+* Inorder: 3 5 7 10 20 30
+* Preorder: 10 5 3 7 20 30
+* Postorder: 3 7 5 30 20 10
+
+---
+
+## 8. Summary
+
+Binary Trees are widely used in searching, sorting, and hierarchical data representation. DFS is a fundamental traversal technique used to explore nodes deeply before backtracking.
