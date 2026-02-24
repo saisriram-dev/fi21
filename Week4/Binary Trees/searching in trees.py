@@ -30,19 +30,15 @@ B.left = D
 B.right = E
 C.right = F
 
-# Level order Traversal (BFS) Time Complexity: O(n) Space Complexity: O(n)
-
-def levelOrder(node):
-    if not node:
-        return []
+def search_tree(node, target):
+    if node is None:
+        return False
     
-    q = deque()
-    q.append(node)
+    if node.val == target:
+        return True
     
-    while q:
-        node = q.popleft()
-        print(node)
-        if node.left: q.append(node.left)
-        if node.right: q.append(node.right)
+    return search_tree(node.left, target) or search_tree(node.right, target)
 
-levelOrder(A)
+search_tree(A, 5)  # True
+search_tree(A, 10) # True
+search_tree(A, 7)  # False
