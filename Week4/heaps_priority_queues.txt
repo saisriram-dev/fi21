@@ -1,0 +1,31 @@
+Heaps and Priority queues are basically the same things.
+
+Heaps consist of min heaps and max heaps.
+Basically, min heap is a type of a binary tree which consists the minimum element as the root node.
+The sub-trees nodes are bigger than the root but they are in turn smaller than their own sub-trees.
+
+Heaps are usually stored in arrays, not pointers.
+For a node at index i:
+Left child → 2i + 1
+Right child → 2i + 2
+Parent → (i - 1) // 2
+
+Insertion - O(log₂N)
+Deletion - O(log₂N)
+Peek - O(1) For finding the smallest or the largest element.
+
+Given a tree if we were to heapify it, time complexity is O(n).
+Min Heap: [10, 20, 40, 30, 50]     
+Tree form:                               
+       10
+     /    \
+   20      40
+  /  \
+30   50
+
+Max Heap:[50, 30, 40, 10, 20]
+       50
+     /    \
+   30      40
+  /  \
+10   20
