@@ -1,0 +1,96 @@
+HashMaps in Data Structures and Algorithms
+
+A HashMap is a data structure that stores data in key–value pairs. Each key is unique and maps to a value. It allows very fast operations like inserting, searching, and deleting data.
+
+Example:
+"apple" → 10
+"banana" → 5
+
+HashMaps are powerful because they provide constant time complexity O(1) on average for insert, search, and delete operations. In rare worst cases, the time complexity can go up to O(n).
+
+HashMaps work using something called a hash function. This function takes a key and converts it into an index of an array where the value is stored.
+
+hash(key) → index → value stored at that index
+
+Sometimes, two different keys may map to the same index. This is called a collision. There are two main ways to handle collisions:
+
+Separate Chaining: Each index stores a list of key–value pairs.
+Example:
+Index 2 → [(key1, val1), (key2, val2)]
+
+Open Addressing: If a collision happens, the algorithm finds another empty slot using techniques like linear probing, quadratic probing, or double hashing.
+
+Basic operations in a HashMap:
+
+Insert:
+map[key] = value
+
+Search:
+value = map[key]
+
+Delete:
+delete map[key]
+
+Example in Python:
+
+my_map = {}
+
+my_map["apple"] = 10
+my_map["banana"] = 5
+
+print(my_map["apple"]) # Output: 10
+
+del my_map["banana"]
+
+Example in Java:
+
+import java.util.HashMap;
+
+public class Main {
+public static void main(String[] args) {
+HashMap<String, Integer> map = new HashMap<>();
+
+    map.put("apple", 10);
+    map.put("banana", 5);
+
+    System.out.println(map.get("apple"));
+
+    map.remove("banana");
+}
+
+}
+
+Common use cases of HashMaps include counting frequencies, solving problems like Two Sum, and checking duplicates.
+
+Frequency counting example:
+
+arr = [1,1,2,3,3,3]
+freq = {}
+
+for num in arr:
+freq[num] = freq.get(num, 0) + 1
+
+Two Sum example:
+
+def twoSum(nums, target):
+m = {}
+for i, num in enumerate(nums):
+if target - num in m:
+return [m[target - num], i]
+m[num] = i
+
+Checking duplicates example:
+
+def containsDuplicate(nums):
+s = set()
+for num in nums:
+if num in s:
+return True
+s.add(num)
+return False
+
+Advantages of HashMaps include very fast operations, simplicity, and efficiency for large datasets. Disadvantages include no ordering of elements, extra memory usage, and possible performance degradation in worst cases.
+
+Use HashMaps when you need fast lookup, counting, tracking elements, or constant-time access.
+
+Pro tip: Whenever you need fast lookup or to check if something exists quickly, think of using a HashMap.
