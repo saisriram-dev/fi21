@@ -37,8 +37,12 @@ Now we reconstruct the url:
     The things which are after the '?' are called parameters and they are seperated by '&'.
 """
 import requests
+import os # This module is used to access environment variables
+from dotenv import load_dotenv # This module is used to load environment variables
 
-API_KEY = "2bffbee852686367a9d5bcfe8082c3bc"
+load_dotenv() # This will load the environment variables
+
+API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 city = input("Enter the city name to get weather info: ")
 geo_url = "http://api.openweathermap.org/geo/1.0/direct"
