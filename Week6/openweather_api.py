@@ -39,6 +39,15 @@ Now we reconstruct the url:
 import requests
 import os # This module is used to access environment variables
 from dotenv import load_dotenv # This module is used to load environment variables
+import logging
+
+logging.basicConfig(
+    filename="Week6\openweather_api.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+logger = logging.getLogger(__name__)
 
 load_dotenv() # This will load the environment variables
 
@@ -76,3 +85,9 @@ print(f"Temperature: {weather_data['main']['temp']}°C")
 print(f"Humidity: {weather_data['main']['humidity']}%")
 print(f"Condition: {weather_data['weather'][0]['description'].title()}")
 print(f"Wind Speed: {weather_data['wind']['speed']} m/s")
+
+logger.info(f"City: {weather_data['name']}")
+logger.info(f"Temperature: {weather_data['main']['temp']}°C")
+logger.info(f"Humidity: {weather_data['main']['humidity']}%")
+logger.info(f"Condition: {weather_data['weather'][0]['description'].title()}")
+logger.info(f"Wind Speed: {weather_data['wind']['speed']} m/s")
