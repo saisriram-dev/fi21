@@ -1,0 +1,23 @@
+[
+    {
+        "City": "Coimbatore",
+        "Condition": "Haze",
+        "Humidity": "58%",
+        "Temperature": "28.81\u00b0C",
+        "Wind Speed": "2.57 m/s"
+    },
+    {
+        "City": "Konkan Division",
+        "Condition": "Haze",
+        "Humidity": "66%",
+        "Temperature": "30\u00b0C",
+        "Wind Speed": "3.6 m/s"
+    },
+    {
+        "City": "Srikakulam",
+        "Condition": "Clear Sky",
+        "Humidity": "50%",
+        "Temperature": "31.86\u00b0C",
+        "Wind Speed": "7.2 m/s"
+    }
+]

@@ -40,9 +40,10 @@ import requests
 import os # This module is used to access environment variables
 from dotenv import load_dotenv # This module is used to load environment variables
 import logging
+import json
 
 logging.basicConfig(
-    filename="Week6\openweather_api.log",
+    filename="Week6\Openweather\openweather_api.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -50,8 +51,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 load_dotenv() # This will load the environment variables
-
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
+
+if not API_KEY:
+    raise ValueError("API key not found. Check your .env file.")
 
 city = input("Enter the city name to get weather info: ")
 geo_url = "http://api.openweathermap.org/geo/1.0/direct"
@@ -68,6 +71,10 @@ geo_response = requests.get(geo_url, params=geo_params).json()
 lat = geo_response[0]["lat"]
 lon = geo_response[0]["lon"]
 
+if not geo_response:
+    print("City not found. Please try again.")
+    exit()
+
 weather_url = "https://api.openweathermap.org/data/2.5/weather"
 weather_params = {
     "lat": lat,
@@ -80,11 +87,40 @@ weather_response = requests.get(weather_url, params=weather_params)
 weather_response.raise_for_status()
 weather_data = weather_response.json()
 
-print(f"City: {weather_data['name']}")
-print(f"Temperature: {weather_data['main']['temp']}°C")
-print(f"Humidity: {weather_data['main']['humidity']}%")
-print(f"Condition: {weather_data['weather'][0]['description'].title()}")
-print(f"Wind Speed: {weather_data['wind']['speed']} m/s")
+weather_info = {
+    "City": weather_data['name'],
+    "Temperature": f"{weather_data['main']['temp']}°C",
+    "Humidity": f"{weather_data['main']['humidity']}%",
+    "Condition": f"{weather_data['weather'][0]['description'].title()}",
+    "Wind Speed": f"{weather_data['wind']['speed']} m/s"
+}
+
+file_path = "Week6\Openweather\weather_log.json"
+
+try:
+    with open(file_path, "r") as file:
+        data = json.load(file)
+
+        # Case 1: If it's a dictionary → convert to list
+        if isinstance(data, dict):
+            data = [data]
+
+        # Case 2: If it's not a list (corrupt or weird)
+        elif not isinstance(data, list):
+            data = []
+
+except (FileNotFoundError, json.JSONDecodeError):
+    # Case 3: File is empty or doesn't exist
+    data = []
+
+# Now ALWAYS safe to append
+data.append(weather_info)
+
+with open(file_path, "w") as file:
+    json.dump(data, file, indent=4, sort_keys=True)
+
+for k, v in weather_info.items():
+    print(f"{k}: {v}")
 
 logger.info(f"City: {weather_data['name']}")
 logger.info(f"Temperature: {weather_data['main']['temp']}°C")
