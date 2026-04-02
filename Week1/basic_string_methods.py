@@ -5,8 +5,12 @@ length = len(name)
 
 # To find the first and last occurrence of an object in a string.
 letter = input("Enter a letter to search for in your name: ")
-position = name.find(letter)# To find the first occurrence of a letter we want to search for. Indexing starts from 0.
-last_position = name.rfind(letter)# To find the last occurrence of a letter we want to search for. Indexing starts from 0.
+position = name.find(
+    letter
+)  # To find the first occurrence of a letter we want to search for. Indexing starts from 0.
+last_position = name.rfind(
+    letter
+)  # To find the last occurrence of a letter we want to search for. Indexing starts from 0.
 
 # To convert the name to uppercase and lowercase.
 upper_name = name.upper()
@@ -31,7 +35,9 @@ phone_number = input("Enter your phone number: ")
 dashe_count = phone_number.count("-")
 print(f"The number of dashes in your phone number is: {dashe_count}")
 
-phone_number_1 = phone_number.replace("-", " ")# Replacing dashes with spaces in the phone number.
+phone_number_1 = phone_number.replace(
+    "-", " "
+)  # Replacing dashes with spaces in the phone number.
 print(f"Your phone number with spaces instead of dashes is: {phone_number_1}")
 
 phone_number_2 = phone_number.replace("-", "")

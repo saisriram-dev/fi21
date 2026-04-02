@@ -1,5 +1,5 @@
-nums = [1,2,3,4,5]
-squares = {num: num **2 for num in nums}
+nums = [1, 2, 3, 4, 5]
+squares = {num: num**2 for num in nums}
 print(squares)
 
 marks = {"ram": 45, "krishna": 82, "arjun": 67, "bheem": 90}

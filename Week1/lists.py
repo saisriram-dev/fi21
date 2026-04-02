@@ -24,7 +24,9 @@ for fruit in fruits:
 print("Total number of fruits:", len(fruits))
 
 # In operator
-if "banana" in fruits: # As banana is present in the fruits list the condition becomes true.
+if (
+    "banana" in fruits
+):  # As banana is present in the fruits list the condition becomes true.
     print("Banana is in the list!")
 
 # Appending
@@ -68,7 +70,9 @@ print("Index of date: ", index_of_date)
 
 # Count occurrences
 count_of_banana = fruits.count("banana")
-count_of_honeydew = fruits.count("honeydew") # Honewdew was popped earlier, so count will be 0
+count_of_honeydew = fruits.count(
+    "honeydew"
+)  # Honewdew was popped earlier, so count will be 0
 print("Count of banana: ", count_of_banana)
 print("Count of honeydew: ", count_of_honeydew)
 

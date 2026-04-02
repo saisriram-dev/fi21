@@ -4,6 +4,7 @@
 # All the methods in the abstract class should be implmented in the child class
 from abc import ABC, abstractmethod
 
+
 class Vehicle(ABC):
 
     @abstractmethod
@@ -16,7 +17,10 @@ class Vehicle(ABC):
     @abstractmethod
     def stop(self):
         pass
+
+
 # car = Vehicle(). This will throw an error because we can't create objects from abstract classes
+
 
 # All methods in the abstract classes should be implemented in the child classes otherwise we will get an error
 class Motorcycle(Vehicle):
@@ -26,9 +30,10 @@ class Motorcycle(Vehicle):
     def stop(self):
         print("I'm a motorcycle, I'm stopping!")
 
+
 class Car(Vehicle):
     def go(self):
-            print("I'm a car, I'm going!")
+        print("I'm a car, I'm going!")
 
     def stop(self):
-            print("I'm a car, I'm stopping!")
+        print("I'm a car, I'm stopping!")

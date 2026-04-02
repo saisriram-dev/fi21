@@ -1,15 +1,17 @@
 from pathlib import Path
 
 # Creating and storing the required paths for future access using the pathlib module
-base = Path(input("Enter the path address where you want to store your expenses list: "))
-expenses_file = base/"expenses.txt"
-expenses_file.touch(exist_ok=True) # Created the expenses.txt folder
+base = Path(
+    input("Enter the path address where you want to store your expenses list: ")
+)
+expenses_file = base / "expenses.txt"
+expenses_file.touch(exist_ok=True)  # Created the expenses.txt folder
 
 # Creating the required variables
 total_spending = 0
 num_lines = 0
-expenses=[]
-dates=[]
+expenses = []
+dates = []
 
 while True:
     date = input("Enter the date in the format dd-mm-yyyy: ")
@@ -18,13 +20,13 @@ while True:
     except ValueError:
         print("Invalid input. Please enter a valid number.")
         continue
-    else: 
+    else:
         print("Expenses saved successfully!")
 
     # Updating the expenses and dates lists
     dates.append(date)
     expenses.append(amount)
-    
+
     # Designing the flow of the program
     permission = input("Do you want to continue (y/n): ")
     if permission.lower() == "n":
@@ -47,7 +49,7 @@ with open(expenses_file, "r") as file:
         total_spending += int(line.partition(", ")[2])
         num_lines += 1
     average_spending = total_spending / num_lines
-        
+
 
 print(f"Your total spending so far is: ₹{total_spending}")
 print(f"Your average expenses is: ₹{average_spending}")

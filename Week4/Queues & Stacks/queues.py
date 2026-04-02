@@ -2,13 +2,14 @@
 # A queue is a data structure that follows the First In First Out (FIFO) principle.
 # We mainly use Doubly linked lists to implement queues in python
 
-"""| Operation    | list     | deque    | 
-   | ------------ | ------   | ------   |
-   | append right | O(1)     | O(1)     |
-   | pop right    | O(1)     | O(1)     |
-   | append left  | ❌ O(n)  | ✅ O(1) |
-   | pop left     | ❌ O(n)  | ✅ O(1) |
+"""| Operation    | list     | deque    |
+| ------------ | ------   | ------   |
+| append right | O(1)     | O(1)     |
+| pop right    | O(1)     | O(1)     |
+| append left  | ❌ O(n)  | ✅ O(1) |
+| pop left     | ❌ O(n)  | ✅ O(1) |
 """
+
 # deque is a double-ended queue that allows us to add and remove elements from both ends efficiently.
 # We can use a deque to implement a queue in Python
 from collections import deque

@@ -4,11 +4,11 @@ from pathlib import Path
 # __file__ is a special variable that contains the path to the current file i.e pathlib_module2.py
 # .parent is a method that returns the parent directory of the "__file__" i.e Week2
 new_base = Path(__file__).parent
-data2 = new_base/"data2"
+data2 = new_base / "data2"
 data2.mkdir(exist_ok=True)
 
 # To create a subfolder inside the data folder
-images2 = data2/"images2"
+images2 = data2 / "images2"
 images2.mkdir(exist_ok=True)
 
 for item in new_base.iterdir():

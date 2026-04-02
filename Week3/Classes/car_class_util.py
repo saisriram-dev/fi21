@@ -7,7 +7,7 @@ car3 = Car(2019, "Mercedes", "Blue", False)
 
 # To access the attributes of the car objects
 print(car1.year)
-print(car2.model)   
+print(car2.model)
 print(car3.colour)
 
 # To access the methods of the car objects

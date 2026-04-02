@@ -1,5 +1,5 @@
 nums = [i for i in range(1, 11)]
-squares_even = [num ** 2 for num in nums if num%2 == 0]
+squares_even = [num**2 for num in nums if num % 2 == 0]
 print(squares_even)
 
 words = ["hi", "hello", "world", "AI", "python"]
@@ -15,7 +15,7 @@ flattened = [num for row in matrix for num in row]
 print(flattened)
 
 nums = [1, 2, 3, 4, 5, 6]
-label = ["even" if num%2 == 0 else "odd" for num in nums]
+label = ["even" if num % 2 == 0 else "odd" for num in nums]
 print(label)
 
 nums = [1, 2, 3, 4]

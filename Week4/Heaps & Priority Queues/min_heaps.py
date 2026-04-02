@@ -31,6 +31,7 @@ print(A[0])  # Output: -4
 min = heapq.heappop(A)
 print(A, min)
 
+
 # Heap sort (Sort the elements of the heap)
 # Time complexity: O(n log n), Space complexity: O(n)
 # Note: O(1) is possible via swapping, but it is complex to implement
@@ -40,13 +41,15 @@ def heap_sort(arr):
     for i in range(len(arr)):
         sorted_arr[i] = heapq.heappop(arr)
     return sorted_arr
+
+
 array = [5, 3, 8, 1, 2]
 sorted_array = heap_sort(array)
 print(sorted_array)
 
 # Heap pushpop (Push an element and then pop the smallest element)
 # Time complexity: O(log n), Space complexity: O(1)
-result = heapq.heappushpop(A, 6) # Push 6 and pop the smallest element (which is 0)
+result = heapq.heappushpop(A, 6)  # Push 6 and pop the smallest element (which is 0)
 print(A, result)
 
 # Building a heap from scratch

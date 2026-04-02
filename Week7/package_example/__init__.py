@@ -1,6 +1,6 @@
-# This file tells python that the directory should be treated as a package. 
+# This file tells python that the directory should be treated as a package.
 # It can also be used to import specific modules or functions
-# This file runs whenever we import the package, so we can use it to set up any 
+# This file runs whenever we import the package, so we can use it to set up any
 # necessary initialization code or to define what is available when the package is imported.
 
 # Importing modules from the package

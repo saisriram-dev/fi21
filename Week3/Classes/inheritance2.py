@@ -4,6 +4,7 @@
 # Multi-level Inheritance = inheriting from a parent class that inherits from another parent class
 #                       C(B(A)), Parent class A -> Parent class B(A) -> Child class C
 
+
 class Animal:
     def __init__(self, name):
         self.name = name
@@ -14,27 +15,35 @@ class Animal:
     def sleep(self):
         print(f"This {self.name} is sleeping")
 
+
 # Prey and Predator classes inherit from the Animal class
 class Prey(Animal):
     def flee(self):
         print(f"This {self.name} is fleeing")
 
+
 class Predator(Animal):
     def hunt(self):
         print(f"This {self.name} is hunting")
+
 
 # Rabbit, Hawk and Fish classes inherit from the Prey and Predator classes
 # As Prey and Predator classes also inherit from the Animal class the Rabbit, Hawk and Fish classes also inherit from the Animal class
 class Rabbit(Prey):
     pass
 
+
 class Hawk(Predator):
     pass
 
+
 # This is know as multiple inheritance
 # Multiple inheritance allows a class to inherit from multiple parent classes
-class Fish(Prey, Predator): # They hunt smaller fish and fall prey to bigger fish, hawks and other animals etc.
+class Fish(
+    Prey, Predator
+):  # They hunt smaller fish and fall prey to bigger fish, hawks and other animals etc.
     pass
+
 
 rabbit = Rabbit("Bugs Bunny")
 hawk = Hawk("Tony")

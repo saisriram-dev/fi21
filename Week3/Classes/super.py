@@ -1,6 +1,7 @@
 # super() = Function used in a child class to call methods from a parent class(superclass).
 #           Allows you to access methods from a parent class without having to create an object of the parent class.
 
+
 class Shape:
     def __init__(self, color, filled):
         self.color = color
@@ -8,6 +9,7 @@ class Shape:
 
     def describe(self):
         print(f"It is {self.color} and {'filled' if self.filled else 'not filled'}")
+
 
 class Circle(Shape):
     # As we are using another constructor it will override the parent's constructor i.e, we won't be able to access the parent's attributes
@@ -23,6 +25,7 @@ class Circle(Shape):
         super().describe()
         print(f"It is a circle with an area of { 3.14 * self.radius * self.radius}")
 
+
 class Square(Shape):
     def __init__(self, color, filled, width):
         super().__init__(color, filled)
@@ -31,6 +34,7 @@ class Square(Shape):
     def describe(self):
         super().describe()
         print(f"It is a square with an area of { 3.14 * self.width * self.width}")
+
 
 class Triangle(Shape):
     def __init__(self, color, filled, width, height):

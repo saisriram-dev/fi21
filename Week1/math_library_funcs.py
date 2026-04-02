@@ -4,7 +4,7 @@ import math
 num = 49
 print(math.sqrt(num))
 
-# Power function    
+# Power function
 base = 5
 exp = 3
 print(pow(5, 3))
@@ -41,14 +41,16 @@ print(math.log2(num))
 
 # Sine function
 angle = math.pi / 2  # 90 degrees in radians
-print(math.sin(angle)) # Angle must be in radians
+print(math.sin(angle))  # Angle must be in radians
 
 # Tangent function
 angle = math.pi / 4  # 45 degrees in radians
 print(math.tan(angle))
 
 # Cosine function
-print(math.cos(math.pi/2)) # Output is 6.123233995736766e-17 which is extremely close to 0 due to floating point precision limitations
+print(
+    math.cos(math.pi / 2)
+)  # Output is 6.123233995736766e-17 which is extremely close to 0 due to floating point precision limitations
 
 # Inverse Sine function
 value = 1
@@ -76,8 +78,12 @@ print(math.tanh(value))
 
 # Degrees to Radians conversion
 degrees = 180
-print(math.radians(degrees)) # Use radians function, input must be degrees then it will get converted to radians
+print(
+    math.radians(degrees)
+)  # Use radians function, input must be degrees then it will get converted to radians
 
 # Radians to Degrees conversion
 radians = math.pi
-print(math.degrees(radians)) # Use degrees function, input must be radians then it will get converted to degrees
+print(
+    math.degrees(radians)
+)  # Use degrees function, input must be radians then it will get converted to degrees

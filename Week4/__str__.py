@@ -1,5 +1,6 @@
 # Demonstartion of the usage if the __str__ method
 
+
 class Person:
     def __init__(self, name, age):
         self.name = name
@@ -13,7 +14,8 @@ class Person:
 
     def __str__(self):
         return f"{self.name} is {self.age} years old."
-    
+
+
 person1 = Person("Alice", 30)
 # If we were to print the person1 object without the __str__ method, it would print the memory address of that object.
 # But with the __str__ method, it will print the string representation of that object.

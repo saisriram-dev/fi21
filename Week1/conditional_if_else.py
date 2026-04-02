@@ -8,11 +8,11 @@ print("You are eligible to vote." if is_adult else "You are not eligible to vote
 
 # Grade classification example
 score = int(input("Enter your score (0-100): "))
-grade = ("A" if score >= 90 else
-         "B" if score >= 80 else
-         "C" if score >= 70 else
-         "D" if score >= 60 else
-         "F")
+grade = (
+    "A"
+    if score >= 90
+    else "B" if score >= 80 else "C" if score >= 70 else "D" if score >= 60 else "F"
+)
 print(f"Your grade is: {grade}")
 
 # Temperature check example

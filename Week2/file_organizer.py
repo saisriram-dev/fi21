@@ -5,20 +5,22 @@ address = str(input("Enter the path for the folder you want to organize: "))
 base = Path(address)
 
 # Creating a folder to store text documents
-txt_folder = base/"Text Documents"
+txt_folder = base / "Text Documents"
 txt_folder.mkdir(exist_ok=True)
 
 # Creating a folder to store pdf documents
-pdf_files = base/"PDF files"
+pdf_files = base / "PDF files"
 pdf_files.mkdir(exist_ok=True)
 
 # Creating a folder to store image documents
-img_files = base/"Image files"
+img_files = base / "Image files"
 img_files.mkdir(exist_ok=True)
 
 for item in base.iterdir():
     if item.suffix == ".txt":
-        print(f"Moving {item.name} to the created text documents folder...") # .name is a method that returns the name of the file instead of the full path address
+        print(
+            f"Moving {item.name} to the created text documents folder..."
+        )  # .name is a method that returns the name of the file instead of the full path address
         shutil.move(item, txt_folder)
         print("Done!")
     elif item.suffix == ".pdf":
@@ -26,7 +28,9 @@ for item in base.iterdir():
         shutil.move(item, pdf_files)
         print("Done!")
     elif item.is_dir():
-        print(f"{item.name} is a directory and can't be sorted in any of the created directories. Skipping...")
+        print(
+            f"{item.name} is a directory and can't be sorted in any of the created directories. Skipping..."
+        )
         print(f"Skipped sorting {item.name}!")
     elif item.suffix in {".jpg", ".png", ".jpeg", ".gif"}:
         # elif item.suffix == ".jpg" or item.suffix == ".png" or item.suffix == ".jpeg" or item.suffix == ".gif":
@@ -35,7 +39,9 @@ for item in base.iterdir():
         shutil.move(item, img_files)
         print("Done!")
     else:
-        print(f"Can't sort the item: {item.name} into any of the following categories: Text documents, PDF files, Image files")
+        print(
+            f"Can't sort the item: {item.name} into any of the following categories: Text documents, PDF files, Image files"
+        )
         print(f"Skipping sorting for {item.name}")
         print("Skipped!")
 

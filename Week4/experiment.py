@@ -11,7 +11,7 @@ def is_solved(board):
 
     # diagonals
     lines.append([board[i][i] for i in range(3)])
-    lines.append([board[i][2-i] for i in range(3)])
+    lines.append([board[i][2 - i] for i in range(3)])
 
     # check winner
     for line in lines:

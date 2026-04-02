@@ -27,7 +27,9 @@ for element in my_tuple:
 print("Total number of elements in tuple:", len(my_tuple))
 
 # In operator
-if "hello" in my_tuple: # As "hello" is present in the tuple the condition becomes true.
+if (
+    "hello" in my_tuple
+):  # As "hello" is present in the tuple the condition becomes true.
     print("'hello' is in the tuple!")
 
 # Count occurrences

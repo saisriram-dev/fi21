@@ -10,7 +10,9 @@ def smart_sum(*args):
             continue
     return total
 
+
 print(smart_sum(1, 2, [3, 4], (5, 6)))
+
 
 # Use of **kwargs
 def filter_kwargs(**kwargs):
@@ -20,19 +22,25 @@ def filter_kwargs(**kwargs):
             res[key] = value
     return res
 
+
 print(filter_kwargs(name="Ram", age=21, city="", country="India"))
+
 
 # This function calls another function
 def call_func(func, args_list, kwargs_dict):
     return func(*args_list, **kwargs_dict)
 
+
 print(call_func(smart_sum, [1, 2, [3, 4], (5, 6)], {}))
+
 
 # UEnforcing keyword only arguments with *
 def create_account(username, *, password):
     return f"Account created for {username} with password {'*' * len(password)}"
 
+
 print(create_account("ram", password="1234"))
+
 
 # Using both *args and **kwargs
 def greet(*args, **kwargs):
@@ -45,5 +53,6 @@ def greet(*args, **kwargs):
         else:
             print(f"Hello {title} {arg}")
     return
+
 
 print(greet("Ram", "Shyam", "Hari", title="Mr.", uppercase=True))

@@ -1,4 +1,4 @@
-# A module is a file containing Python definitions and statements. 
+# A module is a file containing Python definitions and statements.
 # A package is a way of organizing related modules into a single directory hierarchy.
 
 from package_example import APP_NAME, VERSION, DEBUG

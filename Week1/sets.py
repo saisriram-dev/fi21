@@ -31,14 +31,22 @@ my_set.discard(10)  # Does not raise an error if 10 is not found
 print("Set after discarding 10 (not present): ", my_set)
 
 # Set operations
-union_set = my_set.union(another_set) # Union returns all unique elements from both sets
+union_set = my_set.union(
+    another_set
+)  # Union returns all unique elements from both sets
 print("Union of sets: ", union_set)
 
-intersection_set = my_set.intersection(another_set) # Intersection returns common elements in both sets
+intersection_set = my_set.intersection(
+    another_set
+)  # Intersection returns common elements in both sets
 print("Intersection of sets: ", intersection_set)
 
-difference_set = my_set.difference(another_set) # Difference returns elements in my_set but not in another_set
+difference_set = my_set.difference(
+    another_set
+)  # Difference returns elements in my_set but not in another_set
 print("Difference of sets (my_set - another_set): ", difference_set)
 
-symmetric_difference_set = my_set.symmetric_difference(another_set) # Symmetric difference returns elements in either set but not in both
+symmetric_difference_set = my_set.symmetric_difference(
+    another_set
+)  # Symmetric difference returns elements in either set but not in both
 print("Symmetric difference of sets: ", symmetric_difference_set)

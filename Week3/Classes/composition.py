@@ -1,6 +1,7 @@
 # Composition = It means there is a "has-a" relationship
 # A library has a collection of books
 
+
 class Library:
     def __init__(self, name):
         self.name = name
@@ -13,10 +14,12 @@ class Library:
         for book in self.books:
             print(f"{book.title} by {book.author}")
 
+
 class Book:
     def __init__(self, title, author):
         self.title = title
         self.author = author
+
 
 # Create a library
 library = Library("Bloomberry library")
@@ -26,7 +29,7 @@ library = Library("Bloomberry library")
 book1 = Book("Harry Potter and the Philosopher's Stone", "JK Rowling")
 book2 = Book("Harry Potter and the Chamber of Secrets", "JK Rowling")
 book3 = Book("Harry Potter and the Prisoner of Azkaban", "JK Rowling")
-book4 = Book("Harry Potter and the Goblet of Fire", "JK Rowling")   
+book4 = Book("Harry Potter and the Goblet of Fire", "JK Rowling")
 book5 = Book("Harry Potter and the Order of the Phoenix", "JK Rowling")
 book6 = Book("Harry Potter and the Half-Blood Prince", "JK Rowling")
 book7 = Book("Harry Potter and the Deathly Hallows", "JK Rowling")

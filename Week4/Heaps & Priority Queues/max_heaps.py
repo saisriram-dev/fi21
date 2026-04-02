@@ -16,7 +16,9 @@ print(largest)  # Output: 12, which is the largest value in the original list
 # To get the top k largest elements from the list
 k = 3
 top_k_largest = [-heapq.heappop(A) for _ in range(k)]
-print(top_k_largest)  # Output: [10, 9, 8], which are the top 3 largest values in the original list
+print(
+    top_k_largest
+)  # Output: [10, 9, 8], which are the top 3 largest values in the original list
 
 # If we were to push an element in the max heap, say 7 we need to negate it before pushing
 heapq.heappush(A, -7)

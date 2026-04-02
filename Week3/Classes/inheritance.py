@@ -3,7 +3,7 @@
 # It helps with code reusability and modularity.
 # class ChildClass(ParentClass):
 class Animal:
-    def __init__(self, name, is_alive = True):
+    def __init__(self, name, is_alive=True):
         self.name = name
 
     def eat(self):
@@ -12,19 +12,23 @@ class Animal:
     def sleep(self):
         print(f"{self.name} is sleeping.")
 
+
 # The below classes inherit from the Animal class
 # They can access the attributes and methods of the parent class "Animal"
 class Dog(Animal):
     def sound(self):
         print("Woof")
 
+
 class Cat(Animal):
     def sound(self):
         print("Meow")
 
+
 class Mouse(Animal):
     def sound(self):
         print("Squeak")
+
 
 # Creating objects of the child classes
 dog = Dog("Scooby")

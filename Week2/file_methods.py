@@ -27,11 +27,15 @@ with open(file_path3, "r") as file:
 # Looping through a file
 with open(file_path3, "r") as file:
     content = file.readlines()
-    print(content) # This will return a list of each line of the text document including the new line characters
-    for line in file: # This will print each line of the text document
+    print(
+        content
+    )  # This will return a list of each line of the text document including the new line characters
+    for line in file:  # This will print each line of the text document
         print(line)
 
 with open(file_path3, "r") as file:
-    for line in file: # This will print each line of the text document
+    for line in file:  # This will print each line of the text document
         # Use of .strip() is shown in the .strip screenshot in this directory
-        print(line.strip(), end=", ") # This will ensure that there is a space between each name and no new lines
+        print(
+            line.strip(), end=", "
+        )  # This will ensure that there is a space between each name and no new lines
