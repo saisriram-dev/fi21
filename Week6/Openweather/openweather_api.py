@@ -37,20 +37,20 @@ Now we reconstruct the url:
     The things which are after the '?' are called parameters and they are seperated by '&'.
 """
 import requests
-import os # This module is used to access environment variables
-from dotenv import load_dotenv # This module is used to load environment variables
+import os  # This module is used to access environment variables
+from dotenv import load_dotenv  # This module is used to load environment variables
 import logging
 import json
 
 logging.basicConfig(
     filename="Week6\Openweather\openweather_api.log",
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
 logger = logging.getLogger(__name__)
 
-load_dotenv() # This will load the environment variables
+load_dotenv()  # This will load the environment variables
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 if not API_KEY:
@@ -59,11 +59,7 @@ if not API_KEY:
 city = input("Enter the city name to get weather info: ")
 geo_url = "http://api.openweathermap.org/geo/1.0/direct"
 
-geo_params = {
-    "q": city,
-    "limit": 1,
-    "appid": API_KEY
-}
+geo_params = {"q": city, "limit": 1, "appid": API_KEY}
 
 # geo_response will be a python dictionary as we used .json() at the end
 geo_response = requests.get(geo_url, params=geo_params).json()
@@ -76,23 +72,18 @@ if not geo_response:
     exit()
 
 weather_url = "https://api.openweathermap.org/data/2.5/weather"
-weather_params = {
-    "lat": lat,
-    "lon": lon,
-    "appid": API_KEY,
-    "units": "metric"
-}
+weather_params = {"lat": lat, "lon": lon, "appid": API_KEY, "units": "metric"}
 
 weather_response = requests.get(weather_url, params=weather_params)
 weather_response.raise_for_status()
 weather_data = weather_response.json()
 
 weather_info = {
-    "City": weather_data['name'],
+    "City": weather_data["name"],
     "Temperature": f"{weather_data['main']['temp']}°C",
     "Humidity": f"{weather_data['main']['humidity']}%",
     "Condition": f"{weather_data['weather'][0]['description'].title()}",
-    "Wind Speed": f"{weather_data['wind']['speed']} m/s"
+    "Wind Speed": f"{weather_data['wind']['speed']} m/s",
 }
 
 file_path = "Week6\Openweather\weather_log.json"
