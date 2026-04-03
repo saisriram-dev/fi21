@@ -36,7 +36,7 @@ print()
 print(series2.loc["a"])  # Output: 100
 print(series2.loc["d"])  # Output: 200
 print(series2.loc[["a", "d"]])
-print() 
+print()
 #  Output: a    100
 #          d    200
 #          dtype: int64
@@ -52,7 +52,7 @@ print()
 #         dtype: int64
 
 # We can also perform operations on the series, such as addition, subtraction, multiplication, and division
-# When we perform operations on a series, the operation is performed element-wise, meaning that the operation is 
+# When we perform operations on a series, the operation is performed element-wise, meaning that the operation is
 # performed on each element of the series individually
 series3 = series2 + 10
 print(series3)
@@ -72,7 +72,9 @@ print(series2)
 print()
 
 # Filtering values in the series
-filtered_series = series2[series2 % 2 == 0]  # This will filter out the values that are even
+filtered_series = series2[
+    series2 % 2 == 0
+]  # This will filter out the values that are even
 print(filtered_series)
 print()
 """
