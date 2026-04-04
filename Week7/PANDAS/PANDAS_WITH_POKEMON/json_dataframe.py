@@ -83,3 +83,25 @@ df = df.fillna(0)
     and then when we implement the first line of code, it will not affect the 'Height' column 
     because there are no null values in the 'Height' column after the second line of code.
  """
+
+# Groupby funvtion
+
+# This function is used to group the data in the dataframe based on a specific column or columns.
+group1 = df.groupby("Type1")
+print(group1["Height"].mean())
+
+"""
+The above code will group the data in the dataframe based on the 'Type1' column, 
+and it will return a groupby object. So all the grass types will form one group, 
+all the fire types will form another group, and so on. But if we try to print the group we get a 
+group object like this: 
+<groupby [object Object]>
+
+So to utilize this funv-ction we have to apply an aggregate function on the groupby object, 
+for example, if we want to get the mean of the 'Height' column for each group,
+we can use the following code:
+group1 = df.groupby("Type1")["Height"].mean()
+                (or)
+group1 = df.groupby("Type1")
+print(group1["Height].mean())
+"""
