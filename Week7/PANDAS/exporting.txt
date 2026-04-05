@@ -1,0 +1,40 @@
+After working with our data and modifying it to our needs, we need to export it or simply
+convert it to another form such as JSON or CSV.
+
+To do the above in Pandas follow these steps:
+Let us assume our dataframe variable is "df".
+
+-------------------------------> CSV <-------------------------------
+
+Now the python code to export our dataframe into a csv format:
+    df.to_csv("output.csv", index=False) # index=False removes row numbers / labels 
+
+    """
+    output.csv
+    -> This is the file name (and path)
+    -> Pandas will create this file automatically
+    -> If the file already exists → it will overwrite it
+    """
+
+Common attributes we can use inside df.to_csv("output.csv", _________):
+    index=False -> removes row numbers / labels
+    columns=["marks", "grade"] -> Exports only selected columns
+    sep=";" -> In this case, defines the seperator between the values to be ';'
+
+-------------------------------> JSON <-------------------------------
+
+Now the python code to export our dataframe into a csv format:
+    df.to_json("output.json")
+
+    """
+    output.json
+    -> This is the file name (and path)
+    -> Pandas will create this file automatically
+    -> If the file already exists → it will overwrite it
+    """
+
+Common attributes we can use inside df.to_csv("output.json", _________):
+(most used) orient="records" -> This controls how JSON is structured (returns a list of dictionaries)
+            indent=4 -> Makes json readable by adding spacing
+            lines=True -> Just returns dictionaries with each object in a new line (opp. of orient attribute)
+
