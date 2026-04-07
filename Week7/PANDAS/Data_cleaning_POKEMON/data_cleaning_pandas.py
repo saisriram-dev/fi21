@@ -4,7 +4,7 @@ df = pd.read_csv("Week7/PANDAS/Data_cleaning_POKEMON/pokemon.csv", index_col="Na
 
 # 1. Dropping irrelevant columns
 # We are dropping the 'No' and 'Legendary' columns as they are not relevant for our analysis.
-df = df.drop(columns=["No", "Legendary"]) 
+df = df.drop(columns=["No", "Legendary"])
 
 # 2. Handling missing data
 # df = df.dropna(subset=["Type2"])  # Dropping rows where 'Type2' is null
