@@ -1,0 +1,99 @@
+{
+    "No": {
+        "data_type": "int64",
+        "unique_values": 150,
+        "duplicate_values": 17,
+        "missing_values": 0,
+        "summary": {
+            "count": 167.0,
+            "mean": 70.94610778443113,
+            "std": 43.78235567548115,
+            "min": 1.0,
+            "25%": 32.5,
+            "50%": 67.0,
+            "75%": 108.5,
+            "max": 150.0
+        }
+    },
+    "Name": {
+        "data_type": "object",
+        "unique_values": 150,
+        "duplicate_values": 17,
+        "missing_values": 0,
+        "summary": {
+            "count": 167,
+            "top": "Growlithe",
+            "freq": 5
+        }
+    },
+    "Type1": {
+        "data_type": "object",
+        "unique_values": 15,
+        "duplicate_values": 152,
+        "missing_values": 0,
+        "summary": {
+            "count": 167,
+            "top": "Water",
+            "freq": 28
+        }
+    },
+    "Type2": {
+        "data_type": "object",
+        "unique_values": 11,
+        "duplicate_values": 155,
+        "missing_values": 98,
+        "summary": {
+            "count": 69,
+            "top": "Poison",
+            "freq": 21
+        }
+    },
+    "Height": {
+        "data_type": "float64",
+        "unique_values": 26,
+        "duplicate_values": 141,
+        "missing_values": 0,
+        "summary": {
+            "count": 167.0,
+            "mean": 1.1808383233532933,
+            "std": 0.9289152977154065,
+            "min": 0.2,
+            "25%": 0.7,
+            "50%": 1.0,
+            "75%": 1.5,
+            "max": 8.8
+        }
+    },
+    "Weight": {
+        "data_type": "float64",
+        "unique_values": 108,
+        "duplicate_values": 59,
+        "missing_values": 0,
+        "summary": {
+            "count": 167.0,
+            "mean": 42.93353293413174,
+            "std": 57.29569214738579,
+            "min": 0.1,
+            "25%": 9.0,
+            "50%": 25.0,
+            "75%": 55.0,
+            "max": 460.0
+        }
+    },
+    "Legendary": {
+        "data_type": "int64",
+        "unique_values": 2,
+        "duplicate_values": 165,
+        "missing_values": 0,
+        "summary": {
+            "count": 167.0,
+            "mean": 0.023952095808383235,
+            "std": 0.1533597946237113,
+            "min": 0.0,
+            "25%": 0.0,
+            "50%": 0.0,
+            "75%": 0.0,
+            "max": 1.0
+        }
+    }
+}
