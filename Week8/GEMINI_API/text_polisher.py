@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 # Loading the environment variables from the .env file
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
-client = genai.Client(api_key = API_KEY)
+client = genai.Client(api_key=API_KEY)
 
 
 while True:
@@ -34,11 +34,11 @@ while True:
 
     # Getting the response for the cleaned text from the API
     res = client.models.generate_content_stream(
-        model = "gemini-2.0-flash",
-        contents = system_prompt,
-        config = {
+        model="gemini-2.0-flash",
+        contents=system_prompt,
+        config={
             "temperature": 0.7,
-        }
+        },
     )
 
     print("Cleaned Text:\n")

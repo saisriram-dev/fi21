@@ -9,7 +9,7 @@ API_KEY = os.getenv("GEMINI_API_KEY")
 # Initialize the Gemini client with the API key
 client = genai.Client(api_key=API_KEY)
 
-# To create a chat, we need to use the chat endpoint. 
+# To create a chat, we need to use the chat endpoint.
 # The chat endpoint allows us to have a conversation with the model.
 #  We can send messages to the model and it will respond accordingly.
 chat = client.chats.create(model="gemini-2.5-flash")

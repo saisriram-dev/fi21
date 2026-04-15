@@ -14,8 +14,7 @@ uploaded_file = client.files.upload(file="Week8/GEMINI_API/Screenshot (684).png"
 
 # Getting a response regarding the uploaded file
 res = client.models.generate_content(
-    model="gemini-2.0-flash",
-    contents=["What is in this image?", uploaded_file]
+    model="gemini-2.0-flash", contents=["What is in this image?", uploaded_file]
 )
 
 print(res.text)

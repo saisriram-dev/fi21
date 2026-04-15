@@ -14,7 +14,7 @@ def clean_text(text: str, mode: str) -> str:
     mode_map = {
         "formal": "Rewrite the text in a formal and professional tone.",
         "friendly": "Rewrite the text in a friendly and warm tone.",
-        "concise": "Rewrite the text concisely with minimal words."
+        "concise": "Rewrite the text concisely with minimal words.",
     }
 
     instruction = mode_map.get(mode.lower(), "Rewrite the text clearly.")
@@ -29,11 +29,7 @@ Return only the rewritten text. Do not include labels or explanations.
 """
 
     response = client.models.generate_content_stream(
-        model="gemini-2.0-flash",
-        contents=prompt,
-        config={
-            "temperature": 0.7
-        }
+        model="gemini-2.0-flash", contents=prompt, config={"temperature": 0.7}
     )
 
     result = ""

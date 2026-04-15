@@ -77,10 +77,10 @@ while True:
     text = input("Enter the text you want to analyze (or 'exit' to quit): ")
 
     # Checking if the user wants to exit the program
-    if text.lower() == 'exit':
+    if text.lower() == "exit":
         print("Exiting the program. Goodbye!")
         break
-    
+
     # Crearing the prompt by appending the user input to the instruction
     prompt = instruction + text
 
@@ -93,7 +93,7 @@ while True:
     # Printing the response from the Gemini API
     try:
         output = response.text.strip()
-        output = output[output.find("{"):output.rfind("}")+1]
+        output = output[output.find("{") : output.rfind("}") + 1]
         output_json = json.loads(output)
         print(output_json)
     except json.JSONDecodeError:
