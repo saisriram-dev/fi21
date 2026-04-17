@@ -17,22 +17,15 @@ while True:
         continue
 
     # 1) Add user message to history
-    history.append({
-        "role": "user",
-        "parts": [{"text": user_text}]
-    })
+    history.append({"role": "user", "parts": [{"text": user_text}]})
 
     # 2) Send the FULL history every time
     response = client.models.generate_content(
-        model="gemini-3-flash-preview",
-        contents=history
+        model="gemini-3-flash-preview", contents=history
     )
 
     ai_text = response.text
     print("AI:", ai_text, "\n")
 
     # 3) Add model response to history
-    history.append({
-        "role": "model",
-        "parts": [{"text": ai_text}]
-    })
+    history.append({"role": "model", "parts": [{"text": ai_text}]})
