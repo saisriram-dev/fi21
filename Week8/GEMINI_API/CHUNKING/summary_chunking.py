@@ -1,7 +1,6 @@
 import os
 from google import genai
 
-
 # Gemini setup
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
@@ -11,11 +10,13 @@ history = []
 summary_memory = ""
 KEEP_RECENT = 4
 
+
 def format_history(messages):
     lines = []
     for msg in messages:
         lines.append(f'{msg["role"].upper()}: {msg["content"]}')
     return "\n".join(lines)
+
 
 def summarize_old_messages(old_messages):
     if not old_messages:
@@ -32,12 +33,10 @@ Conversation:
 {format_history(old_messages)}
 """
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt
-    )
+    response = client.models.generate_content(model=MODEL_NAME, contents=prompt)
 
     return response.text
+
 
 while True:
     user_input = input("You: ")
@@ -72,10 +71,7 @@ Recent conversation:
 ASSISTANT:
 """
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt
-    )
+    response = client.models.generate_content(model=MODEL_NAME, contents=prompt)
 
     reply = response.text
     print("Gemini:", reply)

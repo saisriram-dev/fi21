@@ -1,7 +1,6 @@
 import os
 from google import genai
 
-
 # Gemini setup
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
@@ -13,6 +12,7 @@ MODEL_NAME = "gemini-2.5-flash"
 history = []
 MAX_HISTORY = 6  # keep only recent messages
 
+
 def format_history(messages):
     formatted = []
     for msg in messages:
@@ -20,6 +20,7 @@ def format_history(messages):
         content = msg["content"]
         formatted.append(f"{role}: {content}")
     return "\n".join(formatted)
+
 
 while True:
     user_input = input("You: ")
@@ -40,10 +41,7 @@ Continue this conversation naturally.
 ASSISTANT:
 """
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt
-    )
+    response = client.models.generate_content(model=MODEL_NAME, contents=prompt)
 
     reply = response.text
     print("Gemini:", reply)
