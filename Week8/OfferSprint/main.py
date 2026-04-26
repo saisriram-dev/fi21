@@ -48,7 +48,9 @@ while True:
         break
 
     if not response.text:
-        print("Interviewer: [No response received - model may have been filtered. Retrying is recommended.]")
+        print(
+            "Interviewer: [No response received - model may have been filtered. Retrying is recommended.]"
+        )
         continue
 
     print("\n" + "Interviewer: " + response.text + "\n")
