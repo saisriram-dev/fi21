@@ -74,18 +74,31 @@
         const input_query = document.querySelector('textarea').value;
         const outputDiv = document.querySelector('.output');
 
-        const response = await fetch("http://127.0.0.1:8000/query", {
+        try {
+            outputDiv.textContent = "Processing...";
+            
+            const response = await fetch("http://127.0.0.1:8000/query", {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json"
             },
             "body": JSON.stringify({"text": input_query})
-        })
+        });
+
+        // This checks if the response is not ok (status code is not 200-299)
+        // If not ok, it throws an error and the code goes to the catch block
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
 
         const data = await response.json();
-        
+
         outputDiv.textContent = data.result;
+        }
         
+        catch (error) {
+            outputDiv.textContent = "Something went wrong. Please try again.";
+        }
     }
 </script>
 </html>
