@@ -26,6 +26,8 @@ http://127.0.0.1:8000/hello/SriRam
 The function will return:
 {"User's Name": "SriRam"}
 """
+
+
 @app.get("/hello/{user_name}")
 def greet(user_name: str):
     return {"User's Name": user_name}
