@@ -57,7 +57,38 @@
       border: 1px solid #ccc;
       border-radius: 6px;
       min-height: 100px;
-      white-space: pre-wrap;
+    }
+
+    #spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ddd;
+      border-top: 4px solid #111;
+      border-radius: 50%;
+      /* animation: [name] [duration] [linear(speed)] [infinite(loops forever)]*/
+      animation: spin 0.8s linear infinite;
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* 
+    keyframes: [name] {
+      [from/to] {
+        [properties]
+      }
+    } 
+    The keyframes define the animation sequence.
+    It is used to define the animation steps.
+    "to" in general means the end state of the animation.
+      
+    */
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -65,17 +96,29 @@
   <div class="container">
     <textarea placeholder="Enter your text..."></textarea>
     <button id="submit" onclick="submitText()">Submit</button>
+    <div id="spinner" class="hidden"></div>
     <div class="output"></div>
   </div>
 </body>
+
+<!-- This line imports the marked library for markdown parsing -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 <script>
 
     async function submitText() {
         const input_query = document.querySelector('textarea').value;
         const outputDiv = document.querySelector('.output');
+        const spinner = document.getElementById('spinner');
 
         try {
-            outputDiv.textContent = "Processing...";
+            // We are removing the 'hidden' class to make it visible just removing 
+            // not permanently deleting it
+            spinner.classList.remove('hidden');
+            outputDiv.innerHTML = "";
+
+            // Disable the submit button to prevent multiple submissions
+            document.getElementById("submit").disabled = true;
             
             const response = await fetch("http://127.0.0.1:8000/query", {
             "method": "POST",
@@ -93,11 +136,20 @@
 
         const data = await response.json();
         console.log(data);
-        outputDiv.textContent = data.result;
+        outputDiv.innerHTML = marked.parse(data.result);
         }
         
         catch (error) {
-            outputDiv.textContent = "Something went wrong. Please try again.";
+            outputDiv.innerHTML = "Something went wrong. Please try again.";
+        }
+
+        finally {
+            // We are adding the 'hidden' class to make it invisible again
+            // This is the opposite of removing it
+            spinner.classList.add('hidden');
+            
+            // Re-enable the submit button
+            document.getElementById("submit").disabled = false;
         }
     }
 </script>

@@ -10,11 +10,7 @@ load_dotenv()
 app = FastAPI()
 
 # List of allowed origins for CORS
-origins = [
-    "http://127.0.0.1:5500",
-    "http://localhost:5500",
-    "http://127.0.0.1:8000"
-]
+origins = ["http://127.0.0.1:5500", "http://localhost:5500", "http://127.0.0.1:8000"]
 
 # Add CORS middleware to allow requests from the frontend
 # This is required to allow the frontend to make requests to the backend
@@ -27,18 +23,25 @@ app.add_middleware(
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
+
 # Define the request model
 # If we get a JSON object with a "text" field, we can use this model
 # Eg. {"text": "Hello"} is Query(text="Hello") and we can access it as Query.text
 class Query(BaseModel):
     text: str
 
+
 @app.post("/query")
 def process_query(query: Query):
     try:
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=query.text
+            model="gemini-2.5-flash-lite",
+            contents=f"""
+            Answer clearly using markdown.
+            Use headings, bullet points, and spacing.
+
+            {query.text}
+            """,
         )
 
         return {"result": response.text}
