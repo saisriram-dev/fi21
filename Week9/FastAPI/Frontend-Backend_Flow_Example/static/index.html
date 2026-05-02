@@ -120,7 +120,8 @@
             // Disable the submit button to prevent multiple submissions
             document.getElementById("submit").disabled = true;
             
-            const response = await fetch("http://127.0.0.1:8000/query", {
+            // /query is enough because we are running the frontend and backend on the same server
+            const response = await fetch("/query", {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json"
