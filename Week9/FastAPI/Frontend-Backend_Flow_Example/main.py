@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+
 # from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -40,6 +41,7 @@ class Query(BaseModel):
 @app.get("/")
 def serve_ui():
     return FileResponse("static/index.html")
+
 
 @app.post("/query")
 def process_query(query: Query):

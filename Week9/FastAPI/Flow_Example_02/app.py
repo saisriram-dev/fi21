@@ -23,17 +23,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Define request model
 # We can now access text like an attribute of the query object
 class Query(BaseModel):
     text: str
 
+
 @app.post("/query")
 def query(query: Query):
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=query.text
+        model="gemini-2.5-flash", contents=query.text
     )
-    
+
     return {"text": response.text}
