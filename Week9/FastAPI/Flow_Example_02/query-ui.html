@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>QueryStudio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--font-d:'Playfair Display',serif;--font-b:'DM Sans',sans-serif;--font-m:'JetBrains Mono',monospace;--tr:.32s cubic-bezier(.4,0,.2,1)}
+
+[data-theme="aurora"]{--bg-page:#f0f0fa;--bg-panel:#fff;--bg-hdr:#e8e6f8;--bg-in:#fafaff;--acc:#7c6fd8;--acc-s:#ede9ff;--acc-t:#4a3fa0;--tp:#1e1b3a;--ts:#6b65a0;--tm:#a09cc8;--bd:#d8d4f0;--bf:#7c6fd8;--sh:0 6px 32px rgba(124,111,216,.16);--tbg:#ede9ff;--ttx:#4a3fa0;--sc:#c4bfee;--bh:#6c5fca}
+[data-theme="sakura"]{--bg-page:#fff5f7;--bg-panel:#fff;--bg-hdr:#fde8ec;--bg-in:#fffafb;--acc:#e0607e;--acc-s:#fde8ec;--acc-t:#a33155;--tp:#2d1520;--ts:#9b5566;--tm:#d4a0ab;--bd:#f5cdd5;--bf:#e0607e;--sh:0 6px 32px rgba(224,96,126,.14);--tbg:#fde8ec;--ttx:#a33155;--sc:#f3b8c5;--bh:#cc4d6e}
+[data-theme="ocean"]{--bg-page:#eef7f9;--bg-panel:#fff;--bg-hdr:#d8eff4;--bg-in:#f7fdfe;--acc:#1d9e8f;--acc-s:#d8eff4;--acc-t:#0d6b61;--tp:#0f2b30;--ts:#3d7f87;--tm:#8fbfc5;--bd:#b9dde4;--bf:#1d9e8f;--sh:0 6px 32px rgba(29,158,143,.13);--tbg:#d8eff4;--ttx:#0d6b61;--sc:#9dd2d8;--bh:#168c7f}
+[data-theme="harvest"]{--bg-page:#fdf6ec;--bg-panel:#fff;--bg-hdr:#fdecd4;--bg-in:#fffcf7;--acc:#d4810f;--acc-s:#fdecd4;--acc-t:#8c4f00;--tp:#241508;--ts:#a0662b;--tm:#d4b48a;--bd:#f0d9b5;--bf:#d4810f;--sh:0 6px 32px rgba(212,129,15,.13);--tbg:#fdecd4;--ttx:#8c4f00;--sc:#e9c490;--bh:#b86c0a}
+[data-theme="sage"]{--bg-page:#f0f5ef;--bg-panel:#fff;--bg-hdr:#ddeedd;--bg-in:#f8faf7;--acc:#4a8c4a;--acc-s:#ddeedd;--acc-t:#2a5c2a;--tp:#111e11;--ts:#4a7050;--tm:#96bb96;--bd:#c0dbc0;--bf:#4a8c4a;--sh:0 6px 32px rgba(74,140,74,.12);--tbg:#ddeedd;--ttx:#2a5c2a;--sc:#a8cfa8;--bh:#3a7a3a}
+[data-theme="midnight"]{--bg-page:#080d1a;--bg-panel:#0e1628;--bg-hdr:#111e36;--bg-in:#0b1220;--acc:#4db8ff;--acc-s:#0d2a42;--acc-t:#a8deff;--tp:#e8f4ff;--ts:#6fa8d0;--tm:#3a6080;--bd:#1e3a5c;--bf:#4db8ff;--sh:0 6px 32px rgba(77,184,255,.18);--tbg:#0d2a42;--ttx:#a8deff;--sc:#1e3a5c;--bh:#2aa4f4}
+[data-theme="obsidian"]{--bg-page:#0d0b14;--bg-panel:#141120;--bg-hdr:#1a162c;--bg-in:#100e1c;--acc:#9c6fff;--acc-s:#1e1440;--acc-t:#cdb8ff;--tp:#f0ebff;--ts:#8a74c0;--tm:#4a3880;--bd:#2a2050;--bf:#9c6fff;--sh:0 6px 32px rgba(156,111,255,.2);--tbg:#1e1440;--ttx:#cdb8ff;--sc:#2a2050;--bh:#8558ee}
+[data-theme="ember"]{--bg-page:#130a06;--bg-panel:#1e1009;--bg-hdr:#2a1508;--bg-in:#180d07;--acc:#ff6b35;--acc-s:#3a1500;--acc-t:#ffb494;--tp:#fff0e8;--ts:#c0805a;--tm:#7a4a30;--bd:#3a2018;--bf:#ff6b35;--sh:0 6px 32px rgba(255,107,53,.2);--tbg:#3a1500;--ttx:#ffb494;--sc:#3a2018;--bh:#e8521c}
+[data-theme="forest"]{--bg-page:#060e08;--bg-panel:#0c1610;--bg-hdr:#101f14;--bg-in:#091009;--acc:#3dd68c;--acc-s:#0a2b18;--acc-t:#92f0c0;--tp:#e8fff2;--ts:#5aad7c;--tm:#2a6840;--bd:#1a3a24;--bf:#3dd68c;--sh:0 6px 32px rgba(61,214,140,.16);--tbg:#0a2b18;--ttx:#92f0c0;--sc:#1a3a24;--bh:#28c476}
+[data-theme="void"]{--bg-page:#050508;--bg-panel:#0c0c14;--bg-hdr:#12121e;--bg-in:#080810;--acc:#f050f8;--acc-s:#1e0a20;--acc-t:#f8a0fc;--tp:#f8f0ff;--ts:#a060b0;--tm:#503060;--bd:#1e1028;--bf:#f050f8;--sh:0 6px 32px rgba(240,80,248,.2);--tbg:#1e0a20;--ttx:#f8a0fc;--sc:#1e1028;--bh:#d030e0}
+
+html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:var(--tp);transition:background var(--tr),color var(--tr);overflow:hidden}
+
+/* HEADER */
+#hdr{background:var(--bg-hdr);border-bottom:1.5px solid var(--bd);padding:0 2rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;position:relative;z-index:200;transition:background var(--tr),border-color var(--tr)}
+#hdr-l{display:flex;align-items:center;gap:8px}
+#hdr-c{display:flex;flex-direction:column;align-items:center;gap:1px}
+#site-title{font-family:var(--font-d);font-size:1.5rem;font-weight:600;color:var(--tp);letter-spacing:-.02em;text-align:center;transition:color var(--tr)}
+#site-sub{font-size:.64rem;font-weight:300;color:var(--tm);letter-spacing:.14em;text-transform:uppercase;text-align:center;transition:color var(--tr)}
+#hdr-r{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+#t-lbl{font-size:.7rem;font-weight:500;color:var(--ts);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;transition:color var(--tr)}
+#t-wrap{position:relative}
+#t-sel{appearance:none;-webkit-appearance:none;background:var(--bg-panel);border:1.5px solid var(--bd);border-radius:10px;color:var(--tp);font-family:var(--font-b);font-size:.8rem;font-weight:500;padding:6px 30px 6px 11px;cursor:pointer;outline:none;min-width:148px;transition:border-color var(--tr),background var(--tr),color var(--tr)}
+#t-sel:hover{border-color:var(--acc)}
+#t-sel:focus{border-color:var(--bf);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 18%,transparent)}
+#t-sel option,#t-sel optgroup{background:var(--bg-panel);color:var(--tp)}
+#t-chev{position:absolute;right:9px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--tm);font-size:.6rem}
+#wdot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pd 2.6s infinite;box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 22%,transparent);transition:background var(--tr),box-shadow var(--tr)}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+
+/* WELCOME */
+#welcome{margin:.9rem auto 0;max-width:680px;width:calc(100% - 3rem);padding:1rem 1.8rem;background:var(--bg-panel);border:1.5px solid var(--bd);border-radius:16px;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:var(--sh);transition:background var(--tr),border-color var(--tr),box-shadow var(--tr)}
+#w-ico{width:40px;height:40px;border-radius:10px;background:var(--acc-s);border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--tr),border-color var(--tr)}
+#w-ico svg{width:20px;height:20px;stroke:var(--acc);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#w-txt{text-align:center}
+#w-txt h1{font-family:var(--font-d);font-size:1.18rem;font-weight:600;color:var(--tp);letter-spacing:-.02em;margin-bottom:2px;transition:color var(--tr)}
+#w-txt p{font-size:.76rem;color:var(--ts);font-weight:300;transition:color var(--tr)}
+
+/* CANVAS */
+#canvas{position:relative;margin:.8rem 1.5rem 0;height:calc(100vh - 168px);min-height:380px}
+
+/* PANELS */
+.panel{position:absolute;background:var(--bg-panel);border:1.5px solid var(--bd);border-radius:15px;box-shadow:var(--sh);display:flex;flex-direction:column;min-width:320px;min-height:220px;overflow:visible;transition:background var(--tr),border-color var(--tr),box-shadow var(--tr);user-select:none}
+.panel.focused{border-color:var(--bf);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 14%,transparent),var(--sh)}
+.panel.dragging{opacity:.9;box-shadow:0 18px 52px color-mix(in srgb,var(--acc) 24%,transparent)}
+
+/* Drag header */
+.phdr{padding:.75rem 1.1rem;border-bottom:1.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between;background:var(--bg-hdr);border-radius:13px 13px 0 0;cursor:grab;flex-shrink:0;transition:background var(--tr),border-color var(--tr)}
+.phdr:active{cursor:grabbing}
+.pttlg{display:flex;align-items:center;gap:8px;pointer-events:none}
+.pico{width:26px;height:26px;border-radius:6px;background:var(--acc-s);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--tr),border-color var(--tr)}
+.pico svg{width:12px;height:12px;stroke:var(--acc);fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.pttl{font-family:var(--font-d);font-size:.88rem;font-weight:600;color:var(--tp);letter-spacing:-.01em;transition:color var(--tr)}
+.psub{font-size:.61rem;color:var(--tm);font-weight:300;letter-spacing:.03em;transition:color var(--tr)}
+.pacts{display:flex;align-items:center;gap:6px;pointer-events:all}
+.ptag{font-size:.61rem;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--tbg);color:var(--ttx);text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--bd);transition:background var(--tr),color var(--tr),border-color var(--tr)}
+.bact{display:inline-flex;align-items:center;gap:4px;background:var(--acc);color:#fff;border:none;border-radius:7px;font-family:var(--font-b);font-size:.7rem;font-weight:500;padding:4px 11px;cursor:pointer;letter-spacing:.03em;transition:background .16s,transform .1s;white-space:nowrap}
+.bact:hover{background:var(--bh)}.bact:active{transform:scale(.97)}
+.bgh{display:inline-flex;align-items:center;gap:4px;background:transparent;color:var(--ts);border:1px solid var(--bd);border-radius:6px;font-family:var(--font-b);font-size:.68rem;font-weight:400;padding:3px 9px;cursor:pointer;transition:border-color .16s,color .16s,background .16s}
+.bgh:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-s)}.bgh:active{transform:scale(.97)}
+
+/* Textarea */
+.pbody{flex:1;display:flex;flex-direction:column;overflow:hidden;border-radius:0 0 13px 13px}
+.pta{flex:1;width:100%;background:var(--bg-in);color:var(--tp);border:none;outline:none;font-family:var(--font-m);font-size:.8rem;line-height:1.82;padding:1rem 1.2rem;resize:none;transition:background var(--tr),color var(--tr);border-radius:0 0 13px 13px;overflow:auto}
+.pta::placeholder{color:var(--tm);font-style:italic;font-weight:300}
+.pta::-webkit-scrollbar{width:5px}.pta::-webkit-scrollbar-track{background:transparent}.pta::-webkit-scrollbar-thumb{background:var(--sc);border-radius:999px}
+.outa{color:var(--ts)}
+
+/* Footer */
+.pftr{padding:.45rem 1.1rem;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--bg-hdr);border-radius:0 0 13px 13px;transition:border-color var(--tr),background var(--tr)}
+.fmeta{font-size:.62rem;color:var(--tm);font-weight:300;font-family:var(--font-m);transition:color var(--tr)}
+.fctr{font-family:var(--font-m);font-size:.62rem;color:var(--tm);transition:color var(--tr)}
+
+/* RESIZE HANDLES */
+.rh{position:absolute;z-index:20}
+.rh-nw{top:-6px;left:-6px;width:16px;height:16px;cursor:nw-resize}
+.rh-ne{top:-6px;right:-6px;width:16px;height:16px;cursor:ne-resize}
+.rh-se{bottom:-6px;right:-6px;width:16px;height:16px;cursor:se-resize}
+.rh-sw{bottom:-6px;left:-6px;width:16px;height:16px;cursor:sw-resize}
+.rh-n{top:-5px;left:16px;right:16px;height:10px;cursor:n-resize}
+.rh-s{bottom:-5px;left:16px;right:16px;height:10px;cursor:s-resize}
+.rh-e{right:-5px;top:16px;bottom:16px;width:10px;cursor:e-resize}
+.rh-w{left:-5px;top:16px;bottom:16px;width:10px;cursor:w-resize}
+.rh-nw::after,.rh-ne::after,.rh-se::after,.rh-sw::after{content:'';position:absolute;width:7px;height:7px;background:var(--acc);border-radius:50%;opacity:.4;transition:opacity .2s,background var(--tr)}
+.rh-nw::after{bottom:1px;right:1px}.rh-ne::after{bottom:1px;left:1px}.rh-se::after{top:1px;left:1px}.rh-sw::after{top:1px;right:1px}
+.panel:hover .rh-nw::after,.panel:hover .rh-ne::after,.panel:hover .rh-se::after,.panel:hover .rh-sw::after{opacity:1}
+
+
+#btn-reset{display:inline-flex;align-items:center;gap:5px;background:transparent;color:var(--ts);border:1.5px solid var(--bd);border-radius:8px;font-family:var(--font-b);font-size:.7rem;font-weight:500;padding:5px 12px;cursor:pointer;letter-spacing:.03em;transition:border-color .16s,color .16s,background .16s}
+#btn-reset:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-s)}
+#btn-reset:active{transform:scale(.97)}
+</style>
+</head>
+<body data-theme="aurora">
+
+<!-- HEADER -->
+<header id="hdr" role="banner">
+  <div id="hdr-l">
+    <div id="wdot" aria-hidden="true"></div>
+    <button id="btn-reset" aria-label="Reset layout" onclick="resetLayout()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.75"/></svg>Reset Layout
+    </button>
+  </div>
+  <div id="hdr-c">
+    <span id="site-title">QueryStudio</span>
+    <span id="site-sub">Intelligent Query Interface</span>
+  </div>
+  <div id="hdr-r">
+    <span id="t-lbl">Theme</span>
+    <div id="t-wrap">
+      <select id="t-sel" name="theme-select" aria-label="Select theme">
+        <optgroup label="✦ Light Themes">
+          <option value="aurora" selected>✦ Aurora</option>
+          <option value="sakura">✿ Sakura</option>
+          <option value="ocean">〜 Ocean Breeze</option>
+          <option value="harvest">⊕ Harvest</option>
+          <option value="sage">⊛ Sage Garden</option>
+        </optgroup>
+        <optgroup label="◈ Dark Themes">
+          <option value="midnight">◈ Midnight</option>
+          <option value="obsidian">◆ Obsidian</option>
+          <option value="ember">◉ Ember</option>
+          <option value="forest">◍ Forest Night</option>
+          <option value="void">⬡ The Void</option>
+        </optgroup>
+      </select>
+      <span id="t-chev" aria-hidden="true">▼</span>
+    </div>
+  </div>
+</header>
+
+<!-- WELCOME -->
+<section id="welcome" role="region" aria-label="Welcome">
+  <div id="w-ico" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+  </div>
+  <div id="w-txt">
+    <h1>Welcome to QueryStudio</h1>
+    <p>Drag panels by their header · Resize from any edge or corner · Switch themes top-right</p>
+  </div>
+</section>
+
+<!-- CANVAS -->
+<div id="canvas" role="main">
+
+  <!-- INPUT PANEL -->
+  <article id="input-panel" class="panel" aria-label="Query input panel">
+    <div class="rh rh-nw" data-dir="nw"></div><div class="rh rh-n" data-dir="n"></div>
+    <div class="rh rh-ne" data-dir="ne"></div><div class="rh rh-e" data-dir="e"></div>
+    <div class="rh rh-se" data-dir="se"></div><div class="rh rh-s" data-dir="s"></div>
+    <div class="rh rh-sw" data-dir="sw"></div><div class="rh rh-w" data-dir="w"></div>
+    <header class="phdr" id="in-hdr">
+      <div class="pttlg">
+        <div class="pico"><svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+        <div><div class="pttl" id="input-panel-title">Input Query</div><div class="psub">Write or paste your query</div></div>
+      </div>
+      <div class="pacts">
+        <span class="ptag" id="input-tag">Input</span>
+        <button id="btn-clear-in" class="bgh" name="clear-input" aria-label="Clear input" onclick="clearIn()">✕ Clear</button>
+        <button id="btn-run" class="bact" name="submit-query" aria-label="Run query" onclick="handleRun()">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Run
+        </button>
+      </div>
+    </header>
+    <div class="pbody" id="input-panel-body">
+      <textarea id="query-input" name="query-input" class="pta" aria-label="Query input" placeholder="// Enter your query here…" spellcheck="false" autocomplete="off" oninput="onInChange(this)"></textarea>
+    </div>
+    <footer class="pftr" id="input-panel-footer">
+      <span class="fmeta" id="in-meta" role="status" aria-live="polite">Ready</span>
+      <span class="fctr" id="in-ctr">0 chars</span>
+    </footer>
+  </article>
+
+  <!-- OUTPUT PANEL -->
+  <article id="output-panel" class="panel" aria-label="Query output panel">
+    <div class="rh rh-nw" data-dir="nw"></div><div class="rh rh-n" data-dir="n"></div>
+    <div class="rh rh-ne" data-dir="ne"></div><div class="rh rh-e" data-dir="e"></div>
+    <div class="rh rh-se" data-dir="se"></div><div class="rh rh-s" data-dir="s"></div>
+    <div class="rh rh-sw" data-dir="sw"></div><div class="rh rh-w" data-dir="w"></div>
+    <header class="phdr" id="out-hdr">
+      <div class="pttlg">
+        <div class="pico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <div><div class="pttl" id="output-panel-title">Output Result</div><div class="psub">Results appear here</div></div>
+      </div>
+      <div class="pacts">
+        <span class="ptag" id="output-tag">Output</span>
+        <button id="btn-copy" class="bgh" name="copy-output" aria-label="Copy output" onclick="copyOut()">⎘ Copy</button>
+        <button id="btn-clear-out" class="bgh" name="clear-output" aria-label="Clear output" onclick="clearOut()">✕ Clear</button>
+      </div>
+    </header>
+    <div class="pbody" id="output-panel-body">
+        <div id="query-output" class="pta outa" aria-label="Query output" style="overflow-y:auto; white-space:pre-wrap; cursor:default;"></div>
+    </div>
+    <footer class="pftr" id="output-panel-footer">
+      <span class="fmeta" id="out-meta" role="status" aria-live="polite">Awaiting input</span>
+      <span class="fctr" id="out-ctr">0 chars</span>
+    </footer>
+  </article>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(function(){
+  /* THEME */
+  const tSel=document.getElementById('t-sel');
+  tSel.addEventListener('change',()=>{document.body.setAttribute('data-theme',tSel.value)});
+
+  /* PANELS */
+  const canvas=document.getElementById('canvas');
+  const pIn=document.getElementById('input-panel'),pOut=document.getElementById('output-panel');
+  const MIN_W=320,MIN_H=220;
+
+  function initPanels(){
+    const cw=canvas.offsetWidth,ch=canvas.offsetHeight,g=18;
+    const pw=Math.max(MIN_W,Math.floor((cw-g*3)/2)),ph=Math.max(MIN_H,Math.floor(ch-g*2));
+    setR(pIn, g,g,pw,ph);
+    setR(pOut,pw+g*2,g,pw,ph);
+  }
+  function setR(el,x,y,w,h){el.style.left=x+'px';el.style.top=y+'px';el.style.width=w+'px';el.style.height=h+'px'}
+
+  /* DRAG */
+  function drag(panel,handle){
+    function start(cx,cy){
+      let ox=panel.offsetLeft,oy=panel.offsetTop,sx=cx,sy=cy;
+      panel.classList.add('dragging');
+      function mv(x,y){panel.style.left=(ox+x-sx)+'px';panel.style.top=(oy+y-sy)+'px'}
+      function end(){panel.classList.remove('dragging');document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);document.removeEventListener('touchmove',tm);document.removeEventListener('touchend',te)}
+      const mm=e=>mv(e.clientX,e.clientY),mu=end;
+      const tm=e=>{const t=e.touches[0];mv(t.clientX,t.clientY)},te=end;
+      document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);
+      document.addEventListener('touchmove',tm,{passive:true});document.addEventListener('touchend',te);
+    }
+    handle.addEventListener('mousedown',e=>{if(e.target.closest('.pacts'))return;e.preventDefault();start(e.clientX,e.clientY)});
+    handle.addEventListener('touchstart',e=>{if(e.target.closest('.pacts'))return;const t=e.touches[0];start(t.clientX,t.clientY)},{passive:true});
+  }
+
+  /* RESIZE */
+  function resize(panel){
+    panel.querySelectorAll('.rh').forEach(h=>{
+      h.addEventListener('mousedown',e=>{
+        e.preventDefault();e.stopPropagation();
+        const dir=h.dataset.dir,sx=e.clientX,sy=e.clientY;
+        const ox=panel.offsetLeft,oy=panel.offsetTop,ow=panel.offsetWidth,oh=panel.offsetHeight,minW=MIN_W,minH=MIN_H;
+        function mv(e){
+          const dx=e.clientX-sx,dy=e.clientY-sy;
+          let nl=ox,nt=oy,nw=ow,nh=oh;
+          if(dir.includes('e'))nw=Math.max(minW,ow+dx);
+          if(dir.includes('s'))nh=Math.max(minH,oh+dy);
+          if(dir.includes('w')){nw=Math.max(minW,ow-dx);if(nw>minW)nl=ox+dx}
+          if(dir.includes('n')){nh=Math.max(minH,oh-dy);if(nh>minH)nt=oy+dy}
+          panel.style.left=nl+'px';panel.style.top=nt+'px';panel.style.width=nw+'px';panel.style.height=nh+'px';
+        }
+        function up(){document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up)}
+        document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);
+      });
+    });
+  }
+
+  /* FOCUS */
+  [pIn,pOut].forEach(p=>{
+    p.addEventListener('mousedown',()=>{
+      [pIn,pOut].forEach(x=>x.classList.remove('focused'));
+      p.classList.add('focused');p.style.zIndex=10;
+      (p===pIn?pOut:pIn).style.zIndex=5;
+    });
+  });
+
+  drag(pIn,document.getElementById('in-hdr'));
+  drag(pOut,document.getElementById('out-hdr'));
+  resize(pIn);resize(pOut);
+  window.addEventListener('resize',initPanels);
+  initPanels();
+
+  window.resetLayout=function(){initPanels()};
+
+  /* UI ACTIONS */
+  const qIn=document.getElementById('query-input'),qOut=document.getElementById('query-output');
+  const inM=document.getElementById('in-meta'),outM=document.getElementById('out-meta');
+  const inC=document.getElementById('in-ctr'),outC=document.getElementById('out-ctr');
+
+  window.onInChange=function(el){
+    const v=el.value,c=v.length,w=v.trim()?v.trim().split(/\s+/).length:0;
+    inC.textContent=c+' chars';inM.textContent=c>0?w+' word'+(w!==1?'s':''):'Ready';
+  };
+  window.handleRun=async function(){
+    const v=qIn.value.trim();
+    if(!v){qIn.focus();return}
+    outM.textContent='Processing…';
+    const user_query = document.getElementById('query-input').value;
+    const output_ans = document.getElementById('query-output');
+    
+    try {
+      const response = await fetch("http://127.0.0.1:8000/query",
+        {
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": JSON.stringify({"text": user_query})
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      /* 
+      In Javascript we can access the values in a dictionary like this:
+      data = {"text": "Hello World"}
+      data.text = "Hello World" 
+      */
+      output_ans.innerHTML = marked.parse(data.text);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  window.clearIn=function(){qIn.value='';window.onInChange(qIn);inM.textContent='Cleared';qIn.focus()};
+  window.clearOut=function(){qOut.innerHTML='';outC.textContent='0 chars';outM.textContent='Awaiting input'};
+  window.copyOut=function(){
+    const v=qOut.innerText;
+    if(!v){return}
+    navigator.clipboard.writeText(v).then(()=>{
+      const b=document.getElementById('btn-copy');b.textContent='✓ Copied!';
+      setTimeout(()=>{b.textContent='⎘ Copy'},1800);
+    });
+  };
+  qOut.addEventListener('input',()=>{const l=qOut.innerText.length;outC.textContent=l+' chars';outM.textContent=l>0?'Has output':'Awaiting input'});
+})();
+</script>
+</body>
+</html>
