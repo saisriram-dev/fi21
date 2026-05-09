@@ -302,7 +302,7 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
     const output_ans = document.getElementById('query-output');
     
     try {
-      const response = await fetch("http://127.0.0.1:8000/query",
+      const response = await fetch("/query",
         {
           "method": "POST",
           "headers": {
