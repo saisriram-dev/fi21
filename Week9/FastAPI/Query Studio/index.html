@@ -25,41 +25,55 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
 /* HEADER */
 #hdr{background:var(--bg-hdr);border-bottom:1.5px solid var(--bd);padding:0 2rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;position:relative;z-index:200;transition:background var(--tr),border-color var(--tr)}
 
-/* ── MOBILE LAYOUT ── */
+/* ── MOBILE: compact header + scrollable canvas ── */
 @media (max-width:768px){
-  html,body{height:auto;overflow:auto;overflow-x:hidden}
+  html,body{height:100%;overflow:hidden}
   #hdr{padding:0 .75rem;height:52px;grid-template-columns:auto 1fr auto;gap:6px}
-  #site-title{font-size:1.1rem}
+  #site-title{font-size:1.05rem}
   #site-sub{display:none}
   #t-lbl{display:none}
-  #t-sel{min-width:100px;font-size:.75rem;padding:5px 24px 5px 8px}
-  #btn-reset span{display:none}
-  #welcome{margin:.6rem auto 0;width:calc(100% - 1.5rem);padding:.7rem 1rem;gap:8px}
-  #w-ico{width:32px;height:32px}
-  #w-txt h1{font-size:.95rem}
-  #w-txt p{font-size:.68rem}
-  #canvas{position:static!important;margin:.7rem .75rem 1.2rem;height:auto!important;display:flex;flex-direction:column;gap:14px}
-  .panel{position:static!important;width:100%!important;left:auto!important;top:auto!important;height:48vh!important;min-height:260px!important;min-width:0!important}
-  .rh{display:none}
-  .phdr{cursor:default;border-radius:13px 13px 0 0}
+  #t-sel{min-width:96px;font-size:.73rem;padding:5px 22px 5px 8px}
+  #welcome{margin:.5rem auto 0;width:calc(100% - 1.2rem);padding:.55rem .9rem;gap:8px}
+  #w-ico{width:28px;height:28px;border-radius:7px}
+  #w-ico svg{width:14px;height:14px}
+  #w-txt h1{font-size:.85rem}
+  #w-txt p{font-size:.65rem}
+  /* Canvas: fixed height, scrollable — panels live inside it */
+  #canvas{position:relative;margin:.5rem .5rem 0;overflow:auto;-webkit-overflow-scrolling:touch;min-height:0}
+  /* Keep panels absolute (JS positions them), just reduce minimums */
+  .panel{min-width:240px;min-height:200px}
   .pttl{font-size:.82rem}
   .psub{display:none}
+  .ptag{display:none}
   .bact{padding:4px 9px;font-size:.67rem}
   .bgh{padding:3px 7px;font-size:.65rem}
-  .ptag{display:none}
+  /* Header: touch-action:none so dragging doesn't scroll the canvas */
+  .phdr{touch-action:none}
+  /* Resize handles: much larger touch targets */
+  .rh-nw,.rh-ne,.rh-se,.rh-sw{width:32px;height:32px}
+  .rh-n,.rh-s{height:22px;left:32px;right:32px}
+  .rh-e,.rh-w{width:22px;top:32px;bottom:32px}
+  .rh-nw::after,.rh-ne::after,.rh-se::after,.rh-sw::after{width:11px;height:11px;opacity:.75}
+  .rh{touch-action:none}
+  /* Visual bottom-center resize bar so users know they can resize */
+  .rh-s{background:color-mix(in srgb,var(--acc) 12%,transparent);border-radius:0 0 6px 6px;bottom:-11px;display:flex;align-items:center;justify-content:center}
+  .rh-s::before{content:'';width:32px;height:3px;border-radius:99px;background:var(--acc);opacity:.55}
 }
 
-/* ── LANDSCAPE MOBILE ── */
+/* ── LANDSCAPE MOBILE: same scrollable canvas, side-by-side panels ── */
 @media (max-width:900px) and (orientation:landscape){
-  html,body{height:auto;overflow:auto;overflow-x:hidden}
-  #canvas{position:static!important;margin:.5rem .75rem 1rem;height:auto!important;display:flex;flex-direction:row;gap:12px;align-items:stretch}
-  .panel{position:static!important;width:50%!important;left:auto!important;top:auto!important;height:65vh!important;min-height:240px!important;min-width:0!important;flex:1}
-  .rh{display:none}
-  .phdr{cursor:default}
-  #hdr{height:48px;padding:0 .75rem}
-  #site-title{font-size:1rem}
+  html,body{height:100%;overflow:hidden}
+  #hdr{padding:0 .75rem;height:46px}
+  #site-title{font-size:.95rem}
   #site-sub{display:none}
   #welcome{display:none}
+  #canvas{position:relative;margin:.4rem .5rem 0;overflow:auto;-webkit-overflow-scrolling:touch;min-height:0}
+  .panel{min-width:220px;min-height:180px}
+  .phdr{touch-action:none}
+  .rh{touch-action:none}
+  .rh-nw,.rh-ne,.rh-se,.rh-sw{width:30px;height:30px}
+  .rh-n,.rh-s{height:20px}
+  .rh-e,.rh-w{width:20px}
 }
 #hdr-l{display:flex;align-items:center;gap:8px}
 #hdr-c{display:flex;flex-direction:column;align-items:center;gap:1px}
@@ -85,7 +99,7 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
 #w-txt p{font-size:.76rem;color:var(--ts);font-weight:300;transition:color var(--tr)}
 
 /* CANVAS */
-#canvas{position:relative;margin:.8rem 1.5rem 0;height:calc(100vh - 168px);min-height:380px}
+#canvas{position:relative;margin:.8rem 1.5rem 0;min-height:380px}
 
 /* PANELS */
 .panel{position:absolute;background:var(--bg-panel);border:1.5px solid var(--bd);border-radius:15px;box-shadow:var(--sh);display:flex;flex-direction:column;min-width:320px;min-height:220px;overflow:visible;transition:background var(--tr),border-color var(--tr),box-shadow var(--tr);user-select:none}
@@ -257,50 +271,81 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
   /* PANELS */
   const canvas=document.getElementById('canvas');
   const pIn=document.getElementById('input-panel'),pOut=document.getElementById('output-panel');
-  const MIN_W=320,MIN_H=220;
+  const DESK_MIN_W=320,DESK_MIN_H=220,MOB_MIN_W=240,MOB_MIN_H=200;
 
-  function isMobile(){return window.innerWidth<=768||(window.innerWidth<=900&&window.screen.orientation&&window.screen.orientation.type.startsWith('landscape'))}
+  function isMobile(){return window.innerWidth<=768}
+  function isLandMob(){return window.innerWidth<=900&&window.innerHeight<window.innerWidth&&window.innerWidth<=900}
+
+  function updateCanvasHeight(){
+    // Give canvas remaining screen height so panels have room
+    const hdrH=document.getElementById('hdr').offsetHeight;
+    const welH=(document.getElementById('welcome').offsetParent!==null)?document.getElementById('welcome').offsetHeight+parseInt(getComputedStyle(document.getElementById('welcome')).marginTop):0;
+    const margin=isMobile()||isLandMob()?8:13;
+    canvas.style.height=(window.innerHeight-hdrH-welH-margin*2)+'px';
+  }
+
   function initPanels(){
+    updateCanvasHeight();
+    const cw=canvas.offsetWidth,ch=canvas.offsetHeight;
     if(isMobile()){
-      [pIn,pOut].forEach(p=>{p.style.left='';p.style.top='';p.style.width='';p.style.height=''});
-      return;
+      // Portrait mobile: stacked vertically, full width
+      const g=10,pw=cw-g*2,ph=Math.max(MOB_MIN_H,Math.floor((ch-g*3)/2));
+      setR(pIn, g,g,pw,ph);
+      setR(pOut,g,g+ph+g,pw,ph);
+    } else if(isLandMob()){
+      // Landscape mobile: side by side
+      const g=8,pw=Math.max(MOB_MIN_W,Math.floor((cw-g*3)/2)),ph=Math.max(MOB_MIN_H,ch-g*2);
+      setR(pIn, g,g,pw,ph);
+      setR(pOut,pw+g*2,g,pw,ph);
+    } else {
+      // Desktop
+      const g=18,pw=Math.max(DESK_MIN_W,Math.floor((cw-g*3)/2)),ph=Math.max(DESK_MIN_H,Math.floor(ch-g*2));
+      setR(pIn, g,g,pw,ph);
+      setR(pOut,pw+g*2,g,pw,ph);
     }
-    const cw=canvas.offsetWidth,ch=canvas.offsetHeight,g=18;
-    const pw=Math.max(MIN_W,Math.floor((cw-g*3)/2)),ph=Math.max(MIN_H,Math.floor(ch-g*2));
-    setR(pIn, g,g,pw,ph);
-    setR(pOut,pw+g*2,g,pw,ph);
   }
   function setR(el,x,y,w,h){el.style.left=x+'px';el.style.top=y+'px';el.style.width=w+'px';el.style.height=h+'px'}
 
-  /* DRAG */
+  /* DRAG — works on mouse and touch; touch-action:none on .phdr stops canvas scroll during drag */
   function drag(panel,handle){
     function start(cx,cy){
+      // Offset by canvas scroll so position stays correct
       let ox=panel.offsetLeft,oy=panel.offsetTop,sx=cx,sy=cy;
       panel.classList.add('dragging');
-      function mv(x,y){panel.style.left=(ox+x-sx)+'px';panel.style.top=(oy+y-sy)+'px'}
-      function end(){panel.classList.remove('dragging');document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);document.removeEventListener('touchmove',tm);document.removeEventListener('touchend',te)}
+      function mv(x,y){
+        panel.style.left=(ox+x-sx)+'px';
+        panel.style.top=(oy+y-sy)+'px';
+      }
+      function end(){
+        panel.classList.remove('dragging');
+        document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);
+        document.removeEventListener('touchmove',tm);document.removeEventListener('touchend',te);
+      }
       const mm=e=>mv(e.clientX,e.clientY),mu=end;
-      const tm=e=>{const t=e.touches[0];mv(t.clientX,t.clientY)},te=end;
+      const tm=e=>{e.preventDefault();const t=e.touches[0];mv(t.clientX,t.clientY)},te=end;
       document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);
-      document.addEventListener('touchmove',tm,{passive:true});document.addEventListener('touchend',te);
+      document.addEventListener('touchmove',tm,{passive:false});document.addEventListener('touchend',te);
     }
     handle.addEventListener('mousedown',e=>{if(e.target.closest('.pacts'))return;e.preventDefault();start(e.clientX,e.clientY)});
-    handle.addEventListener('touchstart',e=>{if(e.target.closest('.pacts'))return;const t=e.touches[0];start(t.clientX,t.clientY)},{passive:true});
+    handle.addEventListener('touchstart',e=>{if(e.target.closest('.pacts'))return;e.preventDefault();const t=e.touches[0];start(t.clientX,t.clientY)},{passive:false});
   }
 
-  /* RESIZE */
+  /* RESIZE — touch-action:none on .rh stops canvas scroll during resize */
   function resize(panel){
+    const minW=()=>isMobile()||isLandMob()?MOB_MIN_W:DESK_MIN_W;
+    const minH=()=>isMobile()||isLandMob()?MOB_MIN_H:DESK_MIN_H;
     panel.querySelectorAll('.rh').forEach(h=>{
       function startResize(sx,sy){
         const dir=h.dataset.dir;
-        const ox=panel.offsetLeft,oy=panel.offsetTop,ow=panel.offsetWidth,oh=panel.offsetHeight,minW=MIN_W,minH=MIN_H;
+        const ox=panel.offsetLeft,oy=panel.offsetTop,ow=panel.offsetWidth,oh=panel.offsetHeight;
         function mv(cx,cy){
           const dx=cx-sx,dy=cy-sy;
           let nl=ox,nt=oy,nw=ow,nh=oh;
-          if(dir.includes('e'))nw=Math.max(minW,ow+dx);
-          if(dir.includes('s'))nh=Math.max(minH,oh+dy);
-          if(dir.includes('w')){nw=Math.max(minW,ow-dx);if(nw>minW)nl=ox+dx}
-          if(dir.includes('n')){nh=Math.max(minH,oh-dy);if(nh>minH)nt=oy+dy}
+          const mw=minW(),mh=minH();
+          if(dir.includes('e'))nw=Math.max(mw,ow+dx);
+          if(dir.includes('s'))nh=Math.max(mh,oh+dy);
+          if(dir.includes('w')){nw=Math.max(mw,ow-dx);if(nw>mw)nl=ox+dx}
+          if(dir.includes('n')){nh=Math.max(mh,oh-dy);if(nh>mh)nt=oy+dy}
           panel.style.left=nl+'px';panel.style.top=nt+'px';panel.style.width=nw+'px';panel.style.height=nh+'px';
         }
         const mm=e=>mv(e.clientX,e.clientY);
@@ -310,7 +355,7 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
         document.addEventListener('touchmove',tm,{passive:false});document.addEventListener('touchend',up);
       }
       h.addEventListener('mousedown',e=>{e.preventDefault();e.stopPropagation();startResize(e.clientX,e.clientY)});
-      h.addEventListener('touchstart',e=>{e.stopPropagation();const t=e.touches[0];startResize(t.clientX,t.clientY)},{passive:true});
+      h.addEventListener('touchstart',e=>{e.preventDefault();e.stopPropagation();const t=e.touches[0];startResize(t.clientX,t.clientY)},{passive:false});
     });
   }
 
@@ -321,13 +366,16 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
       p.classList.add('focused');p.style.zIndex=10;
       (p===pIn?pOut:pIn).style.zIndex=5;
     });
+    p.addEventListener('touchstart',()=>{
+      [pIn,pOut].forEach(x=>x.classList.remove('focused'));
+      p.classList.add('focused');p.style.zIndex=10;
+      (p===pIn?pOut:pIn).style.zIndex=5;
+    },{passive:true});
   });
 
-  if(!isMobile()){
-    drag(pIn,document.getElementById('in-hdr'));
-    drag(pOut,document.getElementById('out-hdr'));
-    resize(pIn);resize(pOut);
-  }
+  drag(pIn,document.getElementById('in-hdr'));
+  drag(pOut,document.getElementById('out-hdr'));
+  resize(pIn);resize(pOut);
   window.addEventListener('resize',initPanels);
   window.addEventListener('orientationchange',()=>setTimeout(initPanels,150));
   initPanels();
