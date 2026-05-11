@@ -204,6 +204,7 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
 
 <!-- CANVAS -->
 <div id="canvas" role="main">
+  <div id="canvas-sizer" style="position:absolute;width:1px;height:1px;pointer-events:none;top:0;left:0"></div>
 
   <!-- INPUT PANEL -->
   <article id="input-panel" class="panel" aria-label="Query input panel">
@@ -303,8 +304,21 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
       setR(pIn, g,g,pw,ph);
       setR(pOut,pw+g*2,g,pw,ph);
     }
+    updateCanvasSizer();
   }
   function setR(el,x,y,w,h){el.style.left=x+'px';el.style.top=y+'px';el.style.width=w+'px';el.style.height=h+'px'}
+
+  function updateCanvasSizer(){
+    // Absolutely-positioned panels don't expand the parent's scroll area.
+    // Updating a sizer element lets the canvas know its real content bounds.
+    const sizer=document.getElementById('canvas-sizer');
+    if(!sizer)return;
+    const panels=[pIn,pOut];
+    const maxBottom=Math.max(...panels.map(p=>p.offsetTop+p.offsetHeight));
+    const maxRight =Math.max(...panels.map(p=>p.offsetLeft+p.offsetWidth));
+    sizer.style.height=(maxBottom+20)+'px';
+    sizer.style.width =(maxRight +20)+'px';
+  }
 
   /* DRAG — works on mouse and touch; touch-action:none on .phdr stops canvas scroll during drag */
   function drag(panel,handle){
@@ -320,6 +334,7 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
         panel.classList.remove('dragging');
         document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);
         document.removeEventListener('touchmove',tm);document.removeEventListener('touchend',te);
+        updateCanvasSizer();
       }
       const mm=e=>mv(e.clientX,e.clientY),mu=end;
       const tm=e=>{e.preventDefault();const t=e.touches[0];mv(t.clientX,t.clientY)},te=end;
@@ -350,7 +365,7 @@ html,body{height:100%;font-family:var(--font-b);background:var(--bg-page);color:
         }
         const mm=e=>mv(e.clientX,e.clientY);
         const tm=e=>{e.preventDefault();const t=e.touches[0];mv(t.clientX,t.clientY)};
-        function up(){document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',up);document.removeEventListener('touchmove',tm);document.removeEventListener('touchend',up)}
+        function up(){document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',up);document.removeEventListener('touchmove',tm);document.removeEventListener('touchend',up);updateCanvasSizer()}
         document.addEventListener('mousemove',mm);document.addEventListener('mouseup',up);
         document.addEventListener('touchmove',tm,{passive:false});document.addEventListener('touchend',up);
       }
