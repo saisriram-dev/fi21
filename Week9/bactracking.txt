@@ -1,0 +1,31 @@
+Backtracking is an algorithmic technique used to solve problems by trying possible solutions step by step and undoing choices when they lead to failure. It works like exploring a maze with a box of chalk: you move forward, mark your path, and if you hit a dead end, you return to the previous junction and try a different route.
+
+The process usually follows three steps:
+
+Choose an option.
+Explore further using that choice.
+Backtrack if the choice does not lead to a valid solution.
+
+Backtracking is commonly used in problems where multiple combinations or arrangements must be tested, such as:
+
+Solving Sudoku puzzles
+Finding paths in a maze
+The N-Queens problem
+Generating permutations and combinations
+
+For example, in Sudoku, the algorithm places a number in an empty cell and continues solving the puzzle. If a conflict appears later, it removes the number and tries another one. The computer is essentially performing careful trial-and-error, but with a disciplined strategy instead of random guessing.
+
+Eg.
+def solve():
+    if solution_complete():
+        return True
+
+    for choice in possible_choices():
+        make_choice(choice)
+
+        if solve():
+            return True
+
+        undo_choice(choice)
+
+    return False
