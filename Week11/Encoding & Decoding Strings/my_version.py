@@ -8,8 +8,9 @@ def encode(strs):
 
     return encoded_string
 
+
 def decode(s):
-    decoded_strs = s.split('23erty')
+    decoded_strs = s.split("23erty")
 
     if s == "":
         decoded_strs = []

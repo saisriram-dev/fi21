@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 def groupAnagrams(strs):
     seen = defaultdict(list)
 
@@ -7,12 +8,13 @@ def groupAnagrams(strs):
         spaces = [0] * 26
 
         for ch in word:
-            spaces[ord(ch) - ord('a')] += 1
-        
+            spaces[ord(ch) - ord("a")] += 1
+
         track = tuple(spaces)
         seen[track].append(word)
-    
+
     return list(seen.values())
+
 
 """
 Sorting problem is eliminated when compared to my version as we are using a fixed size of list (26)

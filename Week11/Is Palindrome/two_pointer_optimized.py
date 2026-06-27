@@ -15,5 +15,5 @@ def isPalindrome(s):
 
         i += 1
         j -= 1
-            
+
     return True

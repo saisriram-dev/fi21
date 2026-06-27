@@ -8,10 +8,10 @@ def lengthOfLongestSubstring(s):
         while s[j] in seen:
             seen.remove(s[i])
             i += 1
-        
+
         seen.add(s[j])
         max_window = max(max_window, j - i + 1)
-        
+
         j += 1
-    
+
     return max_window
