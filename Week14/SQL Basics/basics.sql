@@ -23,3 +23,26 @@ LIMIT 3;
 -- Query 5: Calculate the average salary across all employees
 SELECT AVG(salary) AS average_salary
 FROM Employees;
+
+-- Query 6: Find the maximum salary in the company
+SELECT MAX(salary)
+FROM Employees;
+
+-- Query 7: Calculate average salary by department
+SELECT department,
+       AVG(salary) AS average_salary
+FROM Employees
+GROUP BY department;
+
+-- Query 8: Count the number of employees in each department
+SELECT department,
+       COUNT(*) AS employee_count
+FROM Employees
+GROUP BY department;
+
+-- Query 9: Find departments where average salary exceeds $100,000
+SELECT department,
+       AVG(salary) AS avg_salary
+FROM Employees
+GROUP BY department
+HAVING AVG(salary) > 100000;
