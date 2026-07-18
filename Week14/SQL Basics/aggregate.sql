@@ -91,3 +91,13 @@ SELECT city, COUNT(*) AS user_count
 FROM users
 GROUP BY city
 HAVING COUNT(*) > 1;
+
+-- Each department and its average_salary, but only for departments that have at least 2 employees, 
+-- and only include employees whose salary is at least 65,000 in the calculation.
+
+SELECT department, AVG(salary) AS average_salary
+FROM employees
+WHERE salary >= 65000
+GROUP BY department
+HAVING COUNT(*) >= 2
+ORDER BY average_salary DESC;
