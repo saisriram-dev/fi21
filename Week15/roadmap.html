@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Plan — Applied AI Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A1929;
+    --paper: #0F2540;
+    --paper-2: #122b4d;
+    --line: rgba(143, 217, 232, 0.14);
+    --line-strong: rgba(143, 217, 232, 0.30);
+    --ink: #DCEEF5;
+    --ink-dim: #86A5BC;
+    --ink-faint: #5C7D96;
+    --cyan: #55E0F0;
+    --blue: #4FA9F5;
+    --red: #FF6B57;
+    --amber: #FFB84D;
+    --green: #6FE3A8;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'IBM Plex Sans', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, var(--line) 0px, transparent 1px, transparent 32px, var(--line) 32px),
+      repeating-linear-gradient(90deg, var(--line) 0px, transparent 1px, transparent 32px, var(--line) 32px),
+      var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--cyan); }
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 28px 20px 100px;
+  }
+
+  /* ---------- TITLE BLOCK ---------- */
+  .titleblock{
+    border: 1.5px solid var(--line-strong);
+    background: var(--paper);
+    margin-top: 18px;
+  }
+  .titleblock-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 22px 22px 16px;
+    border-bottom: 1.5px solid var(--line-strong);
+    flex-wrap: wrap;
+  }
+  .titleblock-head h1{
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4.5vw, 2.15rem);
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .titleblock-head h1 span{ color: var(--cyan); }
+  .doc-id{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    text-align: right;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+  .tb-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .tb-cell{
+    padding: 12px 16px;
+    border-right: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+  }
+  .tb-cell:nth-child(4n){ border-right: none; }
+  .tb-label{
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    display:block;
+    margin-bottom: 4px;
+  }
+  .tb-value{
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--cyan);
+  }
+  @media (max-width: 640px){
+    .tb-grid{ grid-template-columns: repeat(2, 1fr); }
+    .tb-cell:nth-child(2n){ border-right: none; }
+    .tb-cell:nth-child(4n){ border-right: 1px solid var(--line); }
+    .tb-cell:nth-child(2n){ border-right: none !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  .quicknav{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 8px;
+  }
+  .quicknav a{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-decoration: none;
+    color: var(--ink-dim);
+    border: 1px solid var(--line-strong);
+    padding: 7px 12px;
+    background: var(--paper);
+  }
+  .quicknav a:hover{ color: var(--cyan); border-color: var(--cyan); }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{ margin-top: 64px; scroll-margin-top: 24px; }
+  .sec-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    border-bottom: 1.5px solid var(--line-strong);
+    padding-bottom: 12px;
+    margin-bottom: 26px;
+  }
+  .sec-num{
+    font-family: var(--font-mono);
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+  }
+  .sec-head h2{
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3.4vw, 1.65rem);
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
+  .sec-sub{
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    margin-left: auto;
+    text-align:right;
+  }
+  p{ color: var(--ink-dim); margin: 0 0 14px; }
+  strong{ color: var(--ink); font-weight: 600; }
+
+  /* ---------- STAMP ---------- */
+  .stamp{
+    border: 3px double var(--red);
+    color: var(--red);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+    transform: rotate(-2deg);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .reality-box{
+    border: 1.5px solid var(--red);
+    background: rgba(255,107,87,0.06);
+    padding: 20px 22px;
+    margin: 20px 0;
+    position: relative;
+  }
+  .reality-box p:last-child{ margin-bottom: 0; }
+  .reality-box p{ color: var(--ink); }
+
+  /* ---------- STAT GRID ---------- */
+  .statgrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line-strong);
+    border: 1px solid var(--line-strong);
+    margin: 22px 0;
+  }
+  .stat{
+    background: var(--paper);
+    padding: 18px 16px;
+  }
+  .stat-num{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--amber);
+    display:block;
+  }
+  .stat-label{
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 640px){ .statgrid{ grid-template-columns: 1fr; } }
+
+  /* ---------- STACK LAYERS ---------- */
+  .layer{
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    margin-bottom: -1px;
+    position: relative;
+  }
+  .layer-head{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    cursor: default;
+  }
+  .layer-tag{
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--bg);
+    background: var(--cyan);
+    padding: 3px 8px;
+    font-weight: 700;
+    flex-shrink:0;
+  }
+  .layer-head h3{
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
+  .layer-time{
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .layer-body{ padding: 18px 20px 20px; }
+  .layer-body p{ margin: 0 0 12px; font-size: 0.94rem; }
+  .resource-row{
+    display:flex;
+    gap: 10px;
+    font-size: 0.86rem;
+    padding: 6px 0;
+    border-top: 1px dashed var(--line);
+  }
+  .resource-row:first-of-type{ border-top:none; padding-top: 2px; }
+  .resource-what{ color: var(--ink); min-width: 150px; flex-shrink:0; font-weight:500; }
+  .resource-where{ color: var(--ink-dim); }
+  .resource-where a{ color: var(--blue); }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{
+    position: relative;
+    padding-left: 34px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left: 9px;
+    top: 6px;
+    bottom: 6px;
+    width: 0;
+    border-left: 2px dashed var(--line-strong);
+  }
+  .tl-item{
+    position: relative;
+    margin-bottom: 34px;
+  }
+  .tl-item:last-child{ margin-bottom: 0; }
+  .tl-node{
+    position:absolute;
+    left: -34px;
+    top: 2px;
+    width: 20px;
+    height: 20px;
+    background: var(--bg);
+    border: 2px solid var(--cyan);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--cyan);
+    font-weight:700;
+  }
+  .tl-card{
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    padding: 16px 20px;
+  }
+  .tl-when{
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .tl-card h3{
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    margin: 4px 0 10px;
+    color: var(--ink);
+  }
+  .tl-card ul{
+    margin: 8px 0 0;
+    padding-left: 18px;
+  }
+  .tl-card li{
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+  .tl-card li::marker{ color: var(--cyan); }
+  .milestone{
+    display:inline-block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--green);
+    border: 1px solid var(--green);
+    padding: 3px 9px;
+  }
+
+  /* ---------- INLINE NOTE ---------- */
+  .note{
+    border-left: 3px solid var(--amber);
+    padding: 4px 16px;
+    margin: 16px 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--amber);
+    background: rgba(255,184,77,0.05);
+  }
+  .note b{ color: var(--amber); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top: 80px;
+    padding-top: 20px;
+    border-top: 1.5px solid var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  h4.subhead{
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--cyan);
+    margin: 22px 0 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TITLE BLOCK -->
+  <div class="titleblock">
+    <div class="titleblock-head">
+      <h1>Build Plan: <span>Applied AI Developer</span></h1>
+      <div class="doc-id">
+        DOC-TYPE: BUILD PLAN<br>
+        REV: 1.0 — BRUTALLY HONEST
+      </div>
+    </div>
+    <div class="tb-grid">
+      <div class="tb-cell">
+        <span class="tb-label">Subject</span>
+        <span class="tb-value">B.Tech, Year 2</span>
+      </div>
+      <div class="tb-cell">
+        <span class="tb-label">Lane</span>
+        <span class="tb-value">Applied AI Dev</span>
+      </div>
+      <div class="tb-cell">
+        <span class="tb-label">Horizon</span>
+        <span class="tb-value">~3 yrs → lifelong</span>
+      </div>
+      <div class="tb-cell">
+        <span class="tb-label">Issued</span>
+        <span class="tb-value">30 Jul 2026</span>
+      </div>
+      <div class="tb-cell">
+        <span class="tb-label">Mechanism</span>
+        <span class="tb-value">Skill → Freelance</span>
+      </div>
+      <div class="tb-cell">
+        <span class="tb-label">Endpoint</span>
+        <span class="tb-value">Owned product</span>
+      </div>
+      <div class="tb-cell">
+        <span class="tb-label">Daily load</span>
+        <span class="tb-value">2–3 hrs, no gaps</span>
+      </div>
+      <div class="tb-cell">
+        <span class="tb-label">Status</span>
+        <span class="tb-value">Not started</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="quicknav">
+    <a href="#reality">01 Reality check</a>
+    <a href="#stack">02 The stack</a>
+    <a href="#timeline">03 The timeline</a>
+    <a href="#money">04 Money, honestly</a>
+    <a href="#endpoint">05 The endpoint</a>
+  </nav>
+
+  <!-- 01 REALITY CHECK -->
+  <section id="reality">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Reality check, before the plan</h2>
+      <span class="sec-sub">read this<br>even if you skip everything else</span>
+    </div>
+
+    <div class="stamp">⬤ Read before proceeding</div>
+
+    <p>You said you're a fast learner. Believe you. It still doesn't change this plan much, and here's why: understanding a concept fast and being able to <em>ship a working, debugged system</em> are different skills. The second one is built entirely from hours spent building and breaking things, not from reading speed. Every timeline below assumes you're quick — it does not assume you can skip the reps. Nobody can.</p>
+
+    <div class="statgrid">
+      <div class="stat">
+        <span class="stat-num">~95%</span>
+        <span class="stat-label">of freelancers fail in year one — usually from poor pricing, no financial buffer, and quitting early, not lack of skill</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">43%</span>
+        <span class="stat-label">of freelancers hit at least one zero-income month — even the experienced ones. It's structural, not personal failure</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">6–12 mo</span>
+        <span class="stat-label">typical time to build a stable client base, once you actually have a skill worth paying for</span>
+      </div>
+    </div>
+
+    <p><strong>Specifically for you as a student:</strong> you're running three demanding things in parallel — a B.Tech degree, learning a genuinely hard technical skill, and client acquisition. Most students who attempt this earn close to nothing in year one. Some do unpaid or near-free work just to get a portfolio piece. That's normal, not a sign you're doing it wrong. The ones who make it aren't the most talented — they're the ones who kept shipping through the flat, unpaid stretch.</p>
+
+    <div class="reality-box">
+      <p><strong>The tooling in this plan will partly be obsolete by the time you graduate.</strong> Frameworks named below (LangChain, CrewAI, whatever's popular) will get replaced, renamed, or merged into something else within 2–3 years — that's the normal churn rate of this space right now. What doesn't go obsolete: system design thinking, knowing why an architecture exists, debugging why an AI agent did something wrong, and evaluating whether output is actually correct. Learn the tools to build things, but bank your real identity on the underlying skill, not the framework name on your resume.</p>
+    </div>
+
+    <div class="reality-box">
+      <p><strong>The "AI wrapper" trap.</strong> A huge share of AI side-projects and gigs right now are thin wrappers around an LLM API with no real moat — anyone can copy them in a weekend, including with AI tools themselves. If your long-term goal is to own a product (see section 05), it cannot just be "I called Claude's API." It needs a specific niche, real users, or a workflow you understand deeply that a generic wrapper doesn't solve. Keep this in the back of your mind from month one.</p>
+    </div>
+  </section>
+
+  <!-- 02 STACK -->
+  <section id="stack">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>The stack — layer by layer</h2>
+      <span class="sec-sub">build bottom-up<br>don't skip layers</span>
+    </div>
+
+    <p>Six layers, built in order. Don't jump to agents before you can comfortably ship a backend. Each layer lists what to actually learn, where, and a realistic time budget at 2–3 focused hours a day.</p>
+
+    <div class="layer">
+      <div class="layer-head">
+        <span class="layer-tag">L1</span>
+        <h3>Foundation — Python, Git, backend basics</h3>
+        <span class="layer-time">4–5 months</span>
+      </div>
+      <div class="layer-body">
+        <p>Everything above this breaks if this layer is shaky. Don't rush it just because it feels "not AI yet."</p>
+        <div class="resource-row"><div class="resource-what">Python core</div><div class="resource-where">CS50P (Harvard, free) or freeCodeCamp's Python certification</div></div>
+        <div class="resource-row"><div class="resource-what">Git & GitHub</div><div class="resource-where">"Learn Git Branching" (interactive) + push every project you build, no exceptions</div></div>
+        <div class="resource-row"><div class="resource-what">REST APIs & backend</div><div class="resource-where">FastAPI's official tutorial — it's the framework you'll use later to serve AI features anyway</div></div>
+        <div class="resource-row"><div class="resource-what">SQL & Postgres</div><div class="resource-where">SQLBolt (interactive) then wire up Postgres in a real project</div></div>
+        <div class="resource-row"><div class="resource-what">Deploy something live</div><div class="resource-where">Render or Railway free tier — a live URL, not just localhost</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="layer-head">
+        <span class="layer-tag">L2</span>
+        <h3>LLM basics — calling models, prompting properly</h3>
+        <span class="layer-time">6–8 weeks</span>
+      </div>
+      <div class="layer-body">
+        <p>Start with raw API calls. Do not reach for a framework yet — you need to understand what's actually happening under the hood first.</p>
+        <div class="resource-row"><div class="resource-what">API fundamentals</div><div class="resource-where">Anthropic's docs (docs.claude.com) and OpenAI's docs — build 3 tiny tools using the raw SDK, no wrapper library</div></div>
+        <div class="resource-row"><div class="resource-what">Prompt engineering</div><div class="resource-where">Anthropic's prompt engineering guide, linked from docs.claude.com</div></div>
+        <div class="resource-row"><div class="resource-what">Structured courses</div><div class="resource-where">DeepLearning.AI's free short courses on LLM application development</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="layer-head">
+        <span class="layer-tag">L3</span>
+        <h3>RAG — grounding answers in real data</h3>
+        <span class="layer-time">6–8 weeks</span>
+      </div>
+      <div class="layer-body">
+        <p>This is what lets an AI tool answer from a company's own documents instead of guessing. It's the single most commonly requested freelance AI feature.</p>
+        <div class="resource-row"><div class="resource-what">Embeddings & vector DBs</div><div class="resource-where">Qdrant's own tutorials (free, self-hostable) — build one pipeline end to end before touching anything fancier</div></div>
+        <div class="resource-row"><div class="resource-what">RAG pipeline</div><div class="resource-where">LlamaIndex's official quickstart — document parsing, chunking, retrieval</div></div>
+        <div class="resource-row"><div class="resource-what">Evaluating RAG quality</div><div class="resource-where">RAGAS framework docs — learn to measure if answers are actually right, not just plausible</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="layer-head">
+        <span class="layer-tag">L4</span>
+        <h3>Agents & MCP — tools, memory, multi-step tasks</h3>
+        <span class="layer-time">8–10 weeks</span>
+      </div>
+      <div class="layer-body">
+        <p>Real engineering judgment starts here: know when a 50-line script is enough and when you genuinely need an agent framework. Most people over-build this layer.</p>
+        <div class="resource-row"><div class="resource-what">MCP (tool connectivity)</div><div class="resource-where">modelcontextprotocol.io — the standard every framework now speaks</div></div>
+        <div class="resource-row"><div class="resource-what">Agent frameworks</div><div class="resource-where">LangGraph docs, or Google's ADK — pick one, don't learn three in parallel</div></div>
+        <div class="resource-row"><div class="resource-what">Memory/state</div><div class="resource-where">Start with a plain database table for session memory before reaching for a dedicated memory framework</div></div>
+        <div class="note"><b>Note:</b> a real example from current practice — teams have spent three weeks building a 14-node agent graph for a task a 50-line script with two tool calls would've solved. Map what the problem needs before picking the framework.</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="layer-head">
+        <span class="layer-tag">L5</span>
+        <h3>Production — deploy, monitor, don't embarrass yourself</h3>
+        <span class="layer-time">6–8 weeks, runs in parallel</span>
+      </div>
+      <div class="layer-body">
+        <p>The gap between "demo" and "something a paying client can rely on" lives entirely in this layer.</p>
+        <div class="resource-row"><div class="resource-what">Docker & CI/CD</div><div class="resource-where">Full Stack Open's "DevOps with Docker" module (free) — GitHub Actions for auto-testing/deploy</div></div>
+        <div class="resource-row"><div class="resource-what">Observability</div><div class="resource-where">Basic logging + tracing on every AI call — know why it failed at 2am, not just that it did</div></div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="layer-head">
+        <span class="layer-tag">L6</span>
+        <h3>Ship & get paid</h3>
+        <span class="layer-time">ongoing, starts month 6–8</span>
+      </div>
+      <div class="layer-body">
+        <p>This layer never finishes. It's the one that funds everything else.</p>
+        <div class="resource-row"><div class="resource-what">Portfolio</div><div class="resource-where">2–3 real projects solving an actual (even small) problem — not tutorial clones</div></div>
+        <div class="resource-row"><div class="resource-what">First clients</div><div class="resource-where">Upwork + Internshala, niched to "AI integration," plus direct outreach to small local businesses with no in-house dev</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 TIMELINE -->
+  <section id="timeline">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>The timeline</h2>
+      <span class="sec-sub">mapped to your<br>remaining semesters</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-node">01</div>
+        <div class="tl-card">
+          <span class="tl-when">Now — rest of 2nd year</span>
+          <h3>Foundation</h3>
+          <ul>
+            <li>Python + Git fluent enough to build without constantly Googling syntax</li>
+            <li>One backend (FastAPI) with a real database, deployed live</li>
+            <li>No AI yet. Resist the urge — this layer is what everything else stands on</li>
+          </ul>
+          <span class="milestone">✓ Milestone: one deployed, working backend project with a public URL</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-node">02</div>
+        <div class="tl-card">
+          <span class="tl-when">Early 3rd year</span>
+          <h3>LLM basics + first real ship</h3>
+          <ul>
+            <li>Comfortable calling LLM APIs directly, no framework crutch yet</li>
+            <li>Build one small tool that solves a real problem using an LLM — for yourself, a club, a local business, anyone</li>
+            <li>Start a public GitHub with everything you build, documented</li>
+          </ul>
+          <span class="milestone">✓ Milestone: one live AI-integrated tool with a real (even if tiny) user</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-node">03</div>
+        <div class="tl-card">
+          <span class="tl-when">Mid 3rd year</span>
+          <h3>RAG + first paid gig</h3>
+          <ul>
+            <li>Ship a RAG pipeline over some real document set</li>
+            <li>Start applying for small freelance jobs — expect low pay and rejection, that's the normal on-ramp, not a signal to quit</li>
+            <li>Track every project publicly — this becomes your pitch</li>
+          </ul>
+          <span class="milestone">✓ Milestone: first paid client, any amount</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-node">04</div>
+        <div class="tl-card">
+          <span class="tl-when">Late 3rd year</span>
+          <h3>Agents, MCP, and a niche</h3>
+          <ul>
+            <li>Build a real multi-step agent — something that takes actions, not just answers questions</li>
+            <li>Pick a niche (e.g. support automation, sales-ops tooling, a specific industry) — stop being "does AI stuff generally"</li>
+            <li>Raise your rate. Say no to gigs outside your niche</li>
+          </ul>
+          <span class="milestone">✓ Milestone: 2–3 repeat or referred clients in one niche</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-node">05</div>
+        <div class="tl-card">
+          <span class="tl-when">4th year, first half</span>
+          <h3>Specialize and watch for the pattern</h3>
+          <ul>
+            <li>Fewer, better-paid clients — this is where AI-integration rates start actually meaning something ($/hr scales with your niche depth, not just "knows AI")</li>
+            <li>Start actively noticing: which client problem keeps repeating? That's your future product, not a new idea you invent from scratch</li>
+          </ul>
+          <span class="milestone">✓ Milestone: a documented, recurring problem worth solving once and selling many times</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-node">06</div>
+        <div class="tl-card">
+          <span class="tl-when">Final year</span>
+          <h3>Build the owned thing</h3>
+          <ul>
+            <li>Build an MVP of your own product around that repeating problem, funded by freelance savings</li>
+            <li>Keep 1–2 freelance clients for cash flow while the product finds its first users</li>
+            <li>The moat is the niche knowledge you built, not the AI API call itself</li>
+          </ul>
+          <span class="milestone">✓ Milestone: an MVP with real (even if unpaid) users, and a decision point ahead</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-node">07</div>
+        <div class="tl-card">
+          <span class="tl-when">Post-graduation</span>
+          <h3>The fork</h3>
+          <ul>
+            <li>Either: take a job that pays a premium for your AI-integration skill, while running the product on the side</li>
+            <li>Or: go all-in on the product if it already has real traction — not before</li>
+            <li>Either path, you're no longer trading pure hours for money. That was the entire point</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 MONEY -->
+  <section id="money">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Money, honestly</h2>
+      <span class="sec-sub">manage the<br>expectation now</span>
+    </div>
+
+    <p>Skip this section and you'll quit in month four when the money doesn't show up. Read it and you won't be surprised.</p>
+
+    <h4 class="subhead">Year one</h4>
+    <p>Realistically: close to $0–$5/hr equivalent, possibly unpaid portfolio work. This isn't because you're bad at it — you have no portfolio and no reputation yet, and those are what freelance income is actually priced on, not raw skill.</p>
+
+    <h4 class="subhead">Once you have 3–5 shipped, documented projects</h4>
+    <p>Entry-level AI-integration freelance work realistically runs in the ballpark of $10–$30/hr for someone without a track record, climbing toward $50–$100/hr as your portfolio and niche depth grow — but that climb takes roughly a year or two of consistent shipping, not a good portfolio site.</p>
+
+    <h4 class="subhead">Even once established</h4>
+    <p>Expect irregular income — slow months are normal, not a sign something's broken. Keep a buffer once money starts coming in, rather than spending it as it arrives.</p>
+
+    <div class="note"><b>Bottom line:</b> the money is a lagging indicator of shipped work and reputation, in that order. Optimize for those two, and stop checking whether the money has "started working" before month 8–10.</div>
+  </section>
+
+  <!-- 05 ENDPOINT -->
+  <section id="endpoint">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>The endpoint</h2>
+      <span class="sec-sub">why any of<br>this compounds</span>
+    </div>
+    <p>Freelancing was never the destination — it's the funding and training mechanism. The actual lifelong asset is the product you build once you've seen a real, recurring problem up close, funded by money you already earned doing the thing that taught you what that problem even was. That's the whole arc: skill → paid work → capital + niche knowledge → something you own that doesn't stop paying you the moment you stop billing hours.</p>
+  </section>
+
+  <footer>
+    <span>BUILD PLAN / APPLIED AI DEVELOPER / REV 1.0</span>
+    <span>NO SHORTCUTS ON L1</span>
+  </footer>
+
+</div>
+</body>
+</html>
