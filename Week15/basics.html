@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Async-First AI Engineer Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0d12;
+    --surface:#12161f;
+    --surface-2:#171c26;
+    --border:#232a35;
+    --text:#dde3ea;
+    --muted:#8791a3;
+    --faint:#586170;
+    --thread:#2b3542;
+    --accent:#4fd1c0;      /* async teal — the event loop */
+    --accent-dim:#2c4a46;
+    --deep:#e8935a;        /* warm amber — DEEP phases */
+    --deep-bg:#2a1f16;
+    --moderate:#7fb3d5;    /* cool blue — MODERATE phase */
+    --moderate-bg:#182530;
+    --code-bg:#1a2029;
+    --code-text:#f2c17e;
+    --serif:'JetBrains Mono', monospace;
+    --sans:'Inter', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.65;
+    font-size:16px;
+  }
+  code{
+    font-family:var(--serif);
+    background:var(--code-bg);
+    color:var(--code-text);
+    padding:0.1em 0.42em;
+    border-radius:4px;
+    font-size:0.86em;
+    border:1px solid #2a2118;
+    white-space:nowrap;
+  }
+  a{color:var(--accent);}
+
+  /* ---------- Layout ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns:260px minmax(0,1fr);
+    max-width:1280px;
+    margin:0 auto;
+  }
+  nav.toc{
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow-y:auto;
+    padding:32px 20px 40px 28px;
+    border-right:1px solid var(--border);
+    scrollbar-width:thin;
+  }
+  nav.toc::-webkit-scrollbar{width:6px;}
+  nav.toc::-webkit-scrollbar-thumb{background:var(--thread);border-radius:3px;}
+  .toc-brand{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:0.08em;
+    color:var(--accent);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .toc-brand::before{
+    content:"";
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 8px var(--accent);
+  }
+  .toc a{
+    display:block;
+    color:var(--muted);
+    text-decoration:none;
+    font-size:13.5px;
+    padding:6px 10px;
+    border-radius:6px;
+    margin-bottom:1px;
+    border-left:2px solid transparent;
+    transition:all .15s ease;
+  }
+  .toc a:hover{color:var(--text);background:var(--surface);}
+  .toc a.phase-link{font-family:var(--serif);font-weight:500;}
+  .toc .toc-group{margin-bottom:4px;}
+  .toc .toc-heading{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:var(--faint);
+    margin:22px 0 6px 10px;
+    font-weight:600;
+  }
+
+  main{
+    padding:56px 48px 100px;
+    min-width:0;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{margin-bottom:56px;}
+  .hero .eyebrow{
+    font-family:var(--serif);
+    color:var(--accent);
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:800;
+    font-size:clamp(32px,4.4vw,48px);
+    line-height:1.08;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  .hero .sub{
+    color:var(--muted);
+    font-size:18px;
+    max-width:640px;
+    margin:0;
+  }
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .hero-meta div{border-left:2px solid var(--accent-dim);padding-left:12px;}
+  .hero-meta .n{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--accent);}
+  .hero-meta .l{font-size:12.5px;color:var(--muted);}
+
+  section{margin-bottom:52px;scroll-margin-top:24px;}
+  h2{
+    font-family:var(--serif);
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0 0 16px;
+  }
+  h3{
+    font-family:var(--serif);
+    font-size:15px;
+    font-weight:600;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    margin:26px 0 12px;
+  }
+  p{margin:0 0 12px;color:var(--text);}
+  p.dim, li.dim{color:var(--muted);}
+  strong{color:#fff;font-weight:600;}
+  em{color:#f0d9ae;font-style:italic;}
+
+  .intro-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:26px 28px;
+    margin-bottom:16px;
+  }
+  .intro-card p:last-child{margin-bottom:0;}
+
+  /* ---------- Phase thread / timeline ---------- */
+  .thread-wrap{position:relative;}
+  .thread-wrap::before{
+    content:"";
+    position:absolute;
+    left:23px;
+    top:12px;
+    bottom:12px;
+    width:2px;
+    background:linear-gradient(var(--thread),var(--thread));
+    background-image:repeating-linear-gradient(to bottom,var(--thread) 0 6px, transparent 6px 12px);
+  }
+  .phase{
+    position:relative;
+    padding-left:64px;
+    margin-bottom:44px;
+    scroll-margin-top:24px;
+  }
+  .phase-node{
+    position:absolute;
+    left:0;
+    top:2px;
+    width:48px;height:48px;
+    border-radius:50%;
+    background:var(--surface);
+    border:2px solid var(--thread);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:15px;
+    color:var(--muted);
+    z-index:1;
+  }
+  .phase.deep .phase-node{border-color:var(--deep);color:var(--deep);}
+  .phase.moderate .phase-node{border-color:var(--moderate);color:var(--moderate);}
+
+  .phase-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:4px;
+  }
+  .phase-head h2{margin:0;}
+  .badge{
+    font-family:var(--serif);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.07em;
+    padding:3px 9px;
+    border-radius:20px;
+    text-transform:uppercase;
+  }
+  .badge.deep{color:var(--deep);background:var(--deep-bg);border:1px solid #3a2a1c;}
+  .badge.moderate{color:var(--moderate);background:var(--moderate-bg);border:1px solid #1f3242;}
+
+  .phase-body{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:24px 28px 8px;
+  }
+  .phase-body h3:first-child{margin-top:4px;}
+
+  .why{
+    font-size:15px;
+    color:var(--muted);
+    border-left:3px solid var(--accent-dim);
+    padding:2px 0 2px 14px;
+    margin-bottom:18px;
+  }
+  .why strong{color:var(--accent);}
+
+  ul{margin:0 0 14px;padding-left:20px;}
+  li{margin-bottom:9px;color:var(--text);}
+  li::marker{color:var(--faint);}
+
+  .dod{
+    background:var(--surface-2);
+    border:1px dashed #2c333e;
+    border-radius:10px;
+    padding:14px 18px;
+    margin:6px 0 16px;
+    font-size:14.5px;
+  }
+  .dod .tag{
+    font-family:var(--serif);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.08em;
+    color:var(--faint);
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:6px;
+  }
+  .resources{font-size:14.5px;color:var(--muted);padding-bottom:18px;}
+  .resources li{color:var(--muted);margin-bottom:6px;}
+
+  .network-note{
+    background:var(--deep-bg);
+    border:1px solid #3a2a1c;
+    border-radius:10px;
+    padding:14px 18px;
+    margin:6px 0 16px;
+    font-size:14.5px;
+    color:#e8c9a8;
+  }
+  .network-note .tag{
+    font-family:var(--serif);font-size:11px;font-weight:700;letter-spacing:.08em;
+    color:var(--deep);text-transform:uppercase;display:block;margin-bottom:6px;
+  }
+
+  /* ---------- Pacing table ---------- */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  thead th{
+    text-align:left;
+    font-family:var(--serif);
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    background:var(--surface-2);
+    padding:12px 20px;
+    border-bottom:1px solid var(--border);
+  }
+  tbody td{
+    padding:13px 20px;
+    border-bottom:1px solid var(--border);
+    color:var(--text);
+    font-size:14.5px;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  td.weeks{font-family:var(--serif);color:var(--accent);font-weight:600;white-space:nowrap;width:110px;}
+
+  /* ---------- Generic section card ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:26px 28px;
+    margin-bottom:16px;
+  }
+  .card h3:first-child{margin-top:0;}
+
+  .post-list{list-style:none;padding:0;margin:0;}
+  .post-list li{
+    display:flex;
+    gap:14px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+    align-items:baseline;
+  }
+  .post-list li:last-child{border-bottom:none;}
+  .post-list .p-tag{
+    font-family:var(--serif);
+    font-size:12px;
+    font-weight:700;
+    color:var(--bg);
+    background:var(--accent);
+    border-radius:5px;
+    padding:2px 7px;
+    white-space:nowrap;
+    height:fit-content;
+  }
+
+  footer{
+    border-top:1px solid var(--border);
+    padding:32px 48px 60px;
+    color:var(--faint);
+    font-size:13px;
+    grid-column:1/-1;
+  }
+
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr;}
+    nav.toc{
+      position:relative;
+      height:auto;
+      display:flex;
+      overflow-x:auto;
+      white-space:nowrap;
+      padding:16px 20px;
+      border-right:none;
+      border-bottom:1px solid var(--border);
+      align-items:center;
+      gap:2px;
+    }
+    .toc-brand{margin-bottom:0;margin-right:12px;flex-shrink:0;}
+    .toc-heading{display:none;}
+    .toc .toc-group{display:inline;}
+    .toc a{display:inline-block;}
+    main{padding:36px 20px 80px;}
+    .phase{padding-left:52px;}
+    .thread-wrap::before{left:19px;}
+    .phase-node{width:40px;height:40px;font-size:13px;}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <nav class="toc">
+    <div class="toc-brand">ComplianceMatch</div>
+    <div class="toc-group">
+      <a href="#intro">00 · How it's built</a>
+    </div>
+    <div class="toc-heading">Phases</div>
+    <div class="toc-group">
+      <a class="phase-link" href="#phase-1">01 · async / await</a>
+      <a class="phase-link" href="#phase-2">02 · pytest baseline</a>
+      <a class="phase-link" href="#phase-3">03 · NumPy vector search</a>
+      <a class="phase-link" href="#phase-4">04 · FastAPI + Pydantic</a>
+      <a class="phase-link" href="#phase-5">05 · Tool-calling</a>
+      <a class="phase-link" href="#phase-6">06 · Gemini API</a>
+    </div>
+    <div class="toc-heading">Wrap-up</div>
+    <div class="toc-group">
+      <a href="#integration">Integration week</a>
+      <a href="#pacing">Suggested pacing</a>
+      <a href="#networking">Networking track</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <div class="eyebrow">Roadmap · 10 weeks</div>
+      <h1>Async-First AI Engineer Roadmap</h1>
+      <p class="sub">One capstone project, six phases, in dependency order — plus a networking track that runs the whole time.</p>
+      <div class="hero-meta">
+        <div><div class="n">1</div><div class="l">capstone project<br>ComplianceMatch</div></div>
+        <div><div class="n">6</div><div class="l">phases, dependency-<br>ordered, not difficulty</div></div>
+        <div><div class="n">10</div><div class="l">suggested weeks,<br>flexible pace</div></div>
+        <div><div class="n">5</div><div class="l">public posts tied<br>to real work</div></div>
+      </div>
+    </div>
+
+    <section id="intro">
+      <h2>0. How this roadmap is built</h2>
+      <div class="intro-card">
+        <p><strong>One capstone, not six disconnected exercises.</strong> You'll build a single project — call it <strong>ComplianceMatch</strong>: an async service that ingests transaction/document records, embeds and indexes them, retrieves nearest matches via brute-force vector search, and exposes an LLM agent that can call your search tool and return schema-validated results. This matches the "compliance-grade" edge cases you listed (duplicate IDs, mismatched currency/precision) — that's not accidental, it's the kind of system this roadmap is training you for (RAG / retrieval-augmented agent, fintech-adjacent). Every phase adds one real module to it. Nothing you build gets thrown away.</p>
+        <p><strong>The order is dependency-driven, not difficulty-driven.</strong> Async comes first because FastAPI, tool-calling, and the Gemini SDK are all async underneath — learning them before async means you'll cargo-cult <code>await</code> without understanding it. Testing is introduced early (not last) because you're explicitly trying to build the habit of testing <em>while</em> you build, not after.</p>
+        <p><strong>Standing rule for the whole project:</strong> every network/API call is <code>async def</code> and <code>await</code>ed from the start — httpx client, Gemini client, everything. No <code>requests.get()</code> "just to get something working." If you catch yourself reaching for a sync call, that's the signal to stop and go re-read Phase 1.</p>
+      </div>
+    </section>
+
+    <div class="thread-wrap">
+
+      <!-- PHASE 1 -->
+      <section class="phase deep" id="phase-1">
+        <div class="phase-node">01</div>
+        <div class="phase-head">
+          <h2>Python <code>async</code> / <code>await</code></h2>
+          <span class="badge deep">Deep</span>
+        </div>
+        <div class="phase-body">
+          <p class="why"><strong>Why first:</strong> everything downstream (FastAPI routes, Gemini SDK calls, concurrent embedding batches) is async. If you don't understand the event loop model now, you'll misuse <code>async def</code> as decoration rather than as a concurrency tool for the rest of the roadmap.</p>
+
+          <h3>Concepts to master</h3>
+          <ul>
+            <li><strong>The event loop, concretely.</strong> There is one thread running one loop. A coroutine doesn't run in parallel — it runs until it hits an <code>await</code> on something that yields control back to the loop (I/O, <code>asyncio.sleep</code>, etc.), at which point the loop goes and runs something else that's ready.</li>
+            <li><strong>Why a blocking call stalls everything.</strong> A synchronous call inside an <code>async def</code> — <code>time.sleep()</code>, <code>requests.get()</code>, a CPU-heavy loop, blocking file I/O — never yields control. The loop is single-threaded, so nothing else scheduled on it runs until that call returns. This is the single most common way people accidentally make "async" code slower than sync code: one blocking call in a hot path serializes everything behind it.</li>
+            <li><strong>Coroutines vs tasks.</strong> Calling an <code>async def</code> function returns a coroutine object — it does nothing until awaited or scheduled. <code>asyncio.create_task()</code> schedules it to start running concurrently; a bare <code>await</code> runs it and blocks the current coroutine until it's done.</li>
+            <li><strong><code>gather()</code> vs sequential <code>await</code>, cold.</strong> Know exactly when each is correct:
+              <ul>
+                <li><code>await a(); await b()</code> — B does not start until A fully finishes. Correct when B depends on A's result, or when you deliberately want to bound concurrency (e.g., rate-limited API).</li>
+                <li><code>await asyncio.gather(a(), b(), c())</code> — all three start immediately, run concurrently, and you get results back in order once all finish. Correct when the calls are independent (e.g., fetching N documents, embedding a batch).</li>
+              </ul>
+            </li>
+            <li>Know the failure behavior difference: by default <code>gather()</code> cancels sibling tasks and raises on the first exception unless you pass <code>return_exceptions=True</code> — decide deliberately which behavior you want, don't just discover it in production.</li>
+            <li><strong>Cancellation and timeouts.</strong> <code>asyncio.wait_for()</code>, <code>asyncio.timeout()</code> (3.11+), and what actually happens to a coroutine when it's cancelled mid-<code>await</code> (a <code>CancelledError</code> is raised at the suspension point — your <code>finally</code> blocks still run, which matters for cleanup).</li>
+            <li><strong>Semaphores for bounded concurrency.</strong> <code>asyncio.Semaphore(n)</code> to cap how many concurrent requests hit an API — you'll need this the moment you fire off <code>gather()</code> on 500 documents against a rate-limited endpoint.</li>
+            <li><strong>Running blocking code safely from async.</strong> <code>loop.run_in_executor()</code> / <code>asyncio.to_thread()</code> for the rare case you truly need a blocking call (e.g., a sync-only library) without stalling the loop.</li>
+            <li><strong>Common footguns:</strong> forgetting to <code>await</code> a coroutine (silently does nothing, no error in older Python — mildly better warnings in newer versions, don't rely on them), mixing sync and async client libraries for the same service, holding an <code>async with</code> session open longer than needed.</li>
+          </ul>
+
+          <h3>Build</h3>
+          <p>A standalone <strong>async fetcher/benchmark script</strong> (this becomes ComplianceMatch's ingestion layer later):</p>
+          <ul>
+            <li>Write a function that fetches N URLs (use a handful of free public JSON endpoints) sequentially, and another that does it with <code>gather()</code>. Print wall-clock time for both at N=1, 10, 50. You should <em>see</em> the gap, not just read about it.</li>
+            <li>Deliberately inject one blocking <code>time.sleep()</code> into the "concurrent" version and watch it degrade back toward sequential — this is the exercise that makes the stalling behavior real instead of theoretical.</li>
+            <li>Add a semaphore to cap concurrency at 5, and a timeout per request with graceful handling of <code>TimeoutError</code>.</li>
+          </ul>
+
+          <h3>Test <span style="color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0;font-size:13px;">(start Phase 2 concepts here, applied)</span></h3>
+          <ul>
+            <li>Test that the sequential version and the gathered version return the same <em>set</em> of results regardless of completion order.</li>
+            <li>Test that a simulated slow endpoint doesn't block a fast one when concurrent, using <code>pytest-asyncio</code> and a mock async endpoint (<code>asyncio.sleep(0.1)</code> as a stand-in).</li>
+            <li>Test the semaphore actually caps concurrency (track a counter of in-flight calls, assert it never exceeds N).</li>
+            <li>Test timeout behavior: a call that never resolves should raise, not hang the test suite forever.</li>
+          </ul>
+
+          <div class="dod"><span class="tag">Definition of done</span>You can explain, without notes, why <code>for url in urls: await fetch(url)</code> and <code>await gather(*(fetch(u) for u in urls))</code> behave differently, and you can point to a line of code you wrote that would have silently reduced your "concurrent" version to sequential if you hadn't caught it.</div>
+
+          <h3>Resources</h3>
+          <ul class="resources">
+            <li>Python docs: <code>asyncio</code> — Coroutines and Tasks, and Synchronization primitives</li>
+            <li>Real Python's asyncio walkthrough (for a second pass, not the first)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PHASE 2 -->
+      <section class="phase deep" id="phase-2">
+        <div class="phase-node">02</div>
+        <div class="phase-head">
+          <h2>pytest baseline</h2>
+          <span class="badge deep">Deep — front-loaded, deepened throughout</span>
+        </div>
+        <div class="phase-body">
+          <p class="why"><strong>Why now:</strong> you can't "test as you build each piece" (your own stated goal) if you don't know pytest yet. Get the baseline now, in under two days, then apply and deepen it in every subsequent phase. This phase is never "done" — it's the discipline that wraps every other phase.</p>
+
+          <h3>Concepts to master now (baseline)</h3>
+          <ul>
+            <li><code>assert</code>-based tests, test discovery (<code>test_*.py</code>, <code>test_*</code> functions), running with <code>pytest -v</code>.</li>
+            <li><strong>Fixtures:</strong> <code>@pytest.fixture</code>, fixture scope (<code>function</code>, <code>module</code>, <code>session</code>), fixtures that yield (setup/teardown), fixture composition (fixtures depending on fixtures).</li>
+            <li><strong>Parametrization:</strong> <code>@pytest.mark.parametrize</code> to run the same test logic across many inputs — this is how you'll cheaply cover the edge cases below without writing N nearly-identical functions.</li>
+            <li><code>pytest-asyncio</code> for testing coroutines (<code>@pytest.mark.asyncio</code>, or the <code>asyncio_mode = auto</code> config).</li>
+            <li><strong>Mocking:</strong> <code>unittest.mock</code> / <code>pytest-mock</code>'s <code>mocker</code> fixture, specifically mocking an async call (<code>AsyncMock</code>).</li>
+            <li><code>pytest.raises()</code> for asserting expected exceptions — you will use this constantly once you're deliberately testing malformed input.</li>
+          </ul>
+
+          <h3>Concepts to deepen later, in context <span style="color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0;">(don't try to learn these in the abstract now — you'll practice them for real in Phases 3–6)</span></h3>
+          <ul>
+            <li><strong>Edge-case design as a discipline, not an afterthought.</strong> For every function you write from here on, before you call it "done," ask: what happens on empty input? Malformed input? Duplicate identifiers? Precision/rounding mismatches? This is explicitly the skill you flagged as most-skipped — the way you actually build it is by making it a checklist item at the end of every module in every phase below, not by studying it separately.</li>
+            <li>Property-based testing with <code>hypothesis</code> (optional but high-leverage for the NumPy phase — it will generate adversarial inputs to your vectorized code that you wouldn't have thought to write by hand).</li>
+            <li>Coverage tooling (<code>pytest-cov</code>) — not to chase 100%, but to catch code paths (usually error branches) you forgot to test.</li>
+          </ul>
+
+          <h3>Build</h3>
+          <p>Nothing new yet — go back and write proper <code>pytest</code> tests (fixtures + parametrize) for the Phase 1 fetcher, replacing any ad hoc <code>print</code>/<code>assert</code> checks you did inline.</p>
+
+          <div class="dod"><span class="tag">Definition of done</span>You can write a parametrized test with a fixture and an <code>AsyncMock</code>, from memory, for a coroutine that calls an external API.</div>
+
+          <h3>Resources</h3>
+          <ul class="resources">
+            <li>pytest docs: Fixtures, and "How to parametrize fixtures and test functions"</li>
+            <li><code>pytest-asyncio</code> README</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PHASE 3 -->
+      <section class="phase deep" id="phase-3">
+        <div class="phase-node">03</div>
+        <div class="phase-head">
+          <h2>NumPy: manual vector search</h2>
+          <span class="badge deep">Deep — highest leverage</span>
+        </div>
+        <div class="phase-body">
+          <p class="why"><strong>Why now, and why it's the highest-leverage phase:</strong> this is explicitly the exercise that turns "I called a vector DB" into "I understand what the vector DB is doing." It has no async dependency, so it can be built and tested as a pure, isolated module — good, because it means you can nail correctness before you ever wrap it in a web framework or wire it to an LLM.</p>
+
+          <h3>Concepts to master</h3>
+          <ul>
+            <li><strong>Vectorization mindset:</strong> a Python <code>for</code> loop over rows is the thing you're explicitly forbidden from writing here. Every operation should be array-to-array or array-to-matrix.</li>
+            <li><strong>Cosine similarity from scratch:</strong> understand it as <code>dot(a, b) / (norm(a) * norm(b))</code>, then generalize to a query vector against a whole matrix of vectors at once — you're computing all similarities in one matrix operation, not one dot product per row.</li>
+            <li>Work out the shapes deliberately: a corpus matrix of shape <code>(N, d)</code>, a query of shape <code>(d,)</code>, and a result of shape <code>(N,)</code>. If you're ever unsure whether to use <code>axis=0</code> or <code>axis=1</code>, stop and reason from the shapes, don't guess.</li>
+            <li>Row-normalize the corpus matrix once at index-build time (<code>np.linalg.norm(..., axis=1, keepdims=True)</code>) rather than renormalizing every query — this is the first real "index vs query time" tradeoff you'll hit, and it matters for the FastAPI phase later where you don't want to renormalize a large corpus on every request.</li>
+            <li><strong>Brute-force top-k, vectorized:</strong> after computing all N similarities, you need the top-k without a full <code>O(N log N)</code> sort when you only need k results. Learn <code>np.argpartition</code> (partial sort, <code>O(N)</code>) versus <code>np.argsort</code> (full sort) and know when the full sort is actually fine (small N) versus when it's wasteful.</li>
+          </ul>
+
+          <h3>Numerical edge cases specific to this domain <span style="color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0;">(this is where it overlaps with your testing discipline directly)</span></h3>
+          <ul>
+            <li>A zero vector (norm = 0) — cosine similarity is undefined; decide and document what your function does (raise? return 0? exclude from corpus?) rather than silently producing <code>NaN</code>.</li>
+            <li><code>NaN</code>/<code>inf</code> propagation — one bad row in a <code>(N, d)</code> matrix can silently poison an entire vectorized computation; know how to detect this (<code>np.isnan(...).any()</code>) before it ships.</li>
+            <li>Floating-point precision when comparing similarity scores for near-duplicate vectors — don't use exact equality; use a tolerance (<code>np.isclose</code>).</li>
+            <li>Duplicate IDs / duplicate vectors in the corpus — decide whether top-k should dedupe by ID or return the same underlying vector twice if it's indexed under two rows.</li>
+            <li>Mismatched precision (e.g., corpus stored as <code>float32</code>, query arriving as <code>float64</code>, or vice versa) — know what NumPy does on mixed-dtype operations and whether that silently changes your results.</li>
+            <li>Empty corpus — <code>top_k</code> on zero rows should return an empty result cleanly, not throw an unhandled <code>IndexError</code>.</li>
+          </ul>
+
+          <h3>Build</h3>
+          <p>A standalone <code>vector_search.py</code> module (becomes ComplianceMatch's retrieval core):</p>
+          <ul>
+            <li><code>cosine_similarity_matrix(query: np.ndarray, corpus: np.ndarray) -&gt; np.ndarray</code> — fully vectorized.</li>
+            <li><code>top_k(query, corpus, k) -&gt; tuple[indices, scores]</code> — using <code>argpartition</code>, not a full sort, then sorting just the k results for display order.</li>
+            <li>A tiny benchmark: time your vectorized top-k against a naive Python-loop version at N=1,000 / 10,000 / 100,000 rows, and keep the numbers — this becomes a genuinely good networking post later (see Phase 3 networking note below).</li>
+          </ul>
+
+          <h3>Test</h3>
+          <p>Using <code>pytest.mark.parametrize</code>, cover: empty corpus, single-row corpus, zero vector in corpus, duplicate rows, <code>k</code> larger than corpus size, mixed <code>float32</code>/<code>float64</code> input, a corpus with one <code>NaN</code> row. Each of these should have a documented, deliberate behavior — not a crash you discover by accident.</p>
+
+          <div class="dod"><span class="tag">Definition of done</span>Your <code>top_k</code> function has zero Python-level loops over rows, passes every edge case above with an intentional (not accidental) result, and you can explain, unprompted, why <code>argpartition</code> is the right tool instead of a full sort.</div>
+
+          <div class="network-note"><span class="tag">Networking note for this phase</span>This is your best "build in public" content of the whole roadmap — a benchmark chart (naive loop vs vectorized) is exactly the kind of concrete, numbers-backed post that gets engagement in ML/eng communities, far more than "I learned NumPy today." Save it — see the Networking section.</div>
+
+          <h3>Resources</h3>
+          <ul class="resources">
+            <li>NumPy docs: Broadcasting, <code>np.linalg.norm</code>, <code>np.argpartition</code></li>
+            <li>Pinecone's or Weaviate's engineering blog posts on brute-force vs ANN search (read <em>after</em> you've built yours, so you're evaluating their explanation instead of copying it)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PHASE 4 -->
+      <section class="phase deep" id="phase-4">
+        <div class="phase-node">04</div>
+        <div class="phase-head">
+          <h2>FastAPI + Pydantic</h2>
+          <span class="badge deep">Deep</span>
+        </div>
+        <div class="phase-body">
+          <p class="why"><strong>Why now:</strong> you need async (Phase 1) understood before you learn a framework built on it, and you need a real module (Phase 3's vector search) worth exposing before routes are anything but toy examples.</p>
+
+          <h3>Concepts to master</h3>
+          <ul>
+            <li><strong>Routes and request/response models.</strong> Every endpoint gets an explicit Pydantic request model and response model — never accept or return a raw dict. This is what gives you free validation and free docs (<code>/docs</code>).</li>
+            <li><strong>Pydantic validation in depth:</strong> field types, <code>Field(...)</code> constraints (min/max length, <code>gt</code>/<code>ge</code> for numeric bounds — directly relevant to your currency/precision edge cases), custom validators (<code>@field_validator</code>), and what happens on validation failure (FastAPI auto-returns 422 — know this so you're not hand-rolling it).</li>
+            <li><strong>Dependency injection with <code>Depends()</code>.</strong> Understand it as reusable, composable request-scoped setup — e.g., a <code>Depends()</code> that loads your vector index once and injects it into every route, versus reconstructing it per-request. Chain dependencies (a dependency that itself depends on another).</li>
+            <li><strong>Background tasks</strong> (<code>BackgroundTasks</code>) for work that shouldn't block the response — e.g., logging a search query for analytics after you've already returned results to the caller. Know the limit: these run in the same process after the response is sent, they are <em>not</em> a real task queue (don't reach for them for anything heavy or requiring retries — that's a Celery/RQ problem, out of scope here, but know the boundary).</li>
+            <li><strong>Error handling with <code>HTTPException</code></strong> — raise it with the right status code and a structured <code>detail</code>, and understand exception handlers (<code>@app.exception_handler(...)</code>) for turning your own custom exceptions (e.g., a <code>VectorSearchError</code>) into consistent API error responses instead of leaking a 500 with a stack trace.</li>
+            <li><strong>Async routes calling async code</strong> — this is where Phase 1 pays off directly: your route handlers should be <code>async def</code>, and any I/O inside them (calling the Gemini client, later) must be awaited, not wrapped in a sync call that stalls the whole app's event loop for every concurrent request.</li>
+          </ul>
+
+          <h3>Build</h3>
+          <p>Wrap Phase 3's <code>vector_search.py</code> in a real API (ComplianceMatch's service layer):</p>
+          <ul>
+            <li><code>POST /search</code> — request model with a query vector (or raw text, if you stub embedding for now) and <code>k</code>; response model with ranked results and scores.</li>
+            <li><code>Depends()</code>-injected index/corpus, loaded once at startup, not per-request.</li>
+            <li>Field validation matching your domain: reject negative <code>k</code>, cap <code>k</code> at a sane max, validate vector dimensionality matches the corpus.</li>
+            <li>A background task that logs each query (timestamp, k, top score) to a file or in-memory list.</li>
+            <li>Deliberate <code>HTTPException</code> handling: 400 for malformed input that somehow slips past Pydantic, 404 if the index isn't loaded yet, 422 comes free from Pydantic.</li>
+          </ul>
+
+          <h3>Test</h3>
+          <p>Use FastAPI's <code>TestClient</code> (or <code>httpx.AsyncClient</code> for true async tests):</p>
+          <ul>
+            <li>Malformed request body (missing field, wrong type) → assert 422 with the field named in the error.</li>
+            <li><code>k</code> larger than corpus size → assert your documented behavior from Phase 3 (not a crash).</li>
+            <li>Dimension mismatch between query and corpus → assert a clean 400, not an unhandled NumPy broadcasting error leaking into a 500.</li>
+            <li>A dependency-injected fake index (override <code>Depends()</code> in tests — learn <code>app.dependency_overrides</code>) so your API tests don't require the real corpus to be loaded.</li>
+          </ul>
+
+          <div class="dod"><span class="tag">Definition of done</span>You can explain what <code>Depends()</code> buys you over just importing a global object, and every error path in your route returns a structured JSON error with the right status code — none of them 500 by accident.</div>
+
+          <h3>Resources</h3>
+          <ul class="resources">
+            <li>FastAPI docs: Dependencies, Background Tasks, Handling Errors (read the official docs directly here — they're unusually good and example-driven)</li>
+            <li>Pydantic v2 docs: Validators, Field constraints</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PHASE 5 -->
+      <section class="phase deep" id="phase-5">
+        <div class="phase-node">05</div>
+        <div class="phase-head">
+          <h2>Tool-calling / structured output</h2>
+          <span class="badge deep">Deep</span>
+        </div>
+        <div class="phase-body">
+          <p class="why"><strong>Why now:</strong> you need a real function worth calling (your FastAPI search endpoint) before "the model calls a tool" means anything beyond a toy example. This phase is the seed of agent behavior — treat it as the payoff for everything above.</p>
+
+          <h3>Concepts to master</h3>
+          <ul>
+            <li><strong>The shape of tool-calling, model-agnostic first.</strong> Before wiring any specific SDK, understand the loop conceptually: you send the model a prompt plus a <em>schema</em> describing available functions (name, description, parameter schema) → the model responds with a structured "call this function with these arguments" message instead of prose → you actually execute that function in your code → you send the result back to the model → the model produces a final answer. The model never executes anything itself; your code is always in the loop.</li>
+            <li><strong>Schema-validated JSON output</strong>, two flavors, know the difference:
+              <ul>
+                <li>Constrained/structured output — you ask the model to produce JSON matching a schema directly (no function execution, just formatted output). Good for extraction tasks.</li>
+                <li>True function/tool calling — the model chooses <em>which</em> function to call and with what arguments, from a set you offer it. Good for agent behavior (your search tool).</li>
+              </ul>
+            </li>
+            <li><strong>Validate everything the model gives you with Pydantic</strong> — treat model output exactly like untrusted user input from Phase 4. Parse the returned JSON into your Pydantic model and let validation errors surface explicitly.</li>
+            <li><strong>Deliberately handle schema mismatches — this is the actual point of the exercise.</strong> It will happen: the model returns a field with the wrong type, omits a required field, hallucinates an argument name, or wraps valid JSON in markdown fences. Build a real strategy, don't just try/except and give up:
+              <ul>
+                <li>Catch the Pydantic <code>ValidationError</code>, extract <em>which</em> field failed.</li>
+                <li>Retry with a corrective follow-up message that includes the specific validation error (models are often good at self-correcting when told exactly what was wrong).</li>
+                <li>Cap retries (e.g., 2 attempts) and fail loudly with a clear error after that — never silently return malformed data as if it succeeded.</li>
+                <li>Log every malformed-output event; this is exactly the kind of thing that matters in a "compliance-grade" system — silent failures on structured output are how bad data gets into downstream systems.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Build</h3>
+          <p>Turn ComplianceMatch's <code>/search</code> endpoint into an LLM-callable tool:</p>
+          <ul>
+            <li>Define a tool schema describing your search function (name, description, parameters matching your Pydantic request model from Phase 4).</li>
+            <li>Build the loop: user query → model decides to call <code>search</code> with arguments → your code validates those arguments against your Pydantic model → your code actually calls the FastAPI endpoint (async, via <code>httpx.AsyncClient</code>) → result goes back to the model → model returns a final structured answer (also schema-validated).</li>
+            <li>Implement the retry-with-correction loop for malformed model output, with a hard cap and explicit failure mode.</li>
+          </ul>
+
+          <h3>Test</h3>
+          <ul>
+            <li>Mock the model call (don't hit a real API in unit tests) and feed it deliberately malformed responses: missing required field, wrong type, valid JSON wrapped in prose/markdown, a call to a function name that doesn't exist.</li>
+            <li>Assert your retry logic actually retries with a corrective message (check the second call's prompt contains the validation error).</li>
+            <li>Assert the hard cap actually stops retrying and raises/returns your explicit failure state rather than looping forever.</li>
+            <li>Assert a well-formed tool call correctly triggers your Phase 4 search function with the right arguments (mock the HTTP call, assert it was called with them).</li>
+          </ul>
+
+          <div class="dod"><span class="tag">Definition of done</span>You can show, with a test, a malformed model response going in and a clean, explicit failure (not a crash, not silently-wrong data) coming out — plus a second test showing the self-correction retry actually working.</div>
+
+          <h3>Resources</h3>
+          <ul class="resources">
+            <li>Whatever provider you use for this phase's mocked/toy calls — OpenAI's or Anthropic's function-calling docs are fine as a model-agnostic reference for the <em>shape</em> of tool calling before you specialize into Gemini in Phase 6.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PHASE 6 -->
+      <section class="phase moderate" id="phase-6">
+        <div class="phase-node">06</div>
+        <div class="phase-head">
+          <h2>Gemini generation + embeddings API</h2>
+          <span class="badge moderate">Moderate</span>
+        </div>
+        <div class="phase-body">
+          <p class="why"><strong>Why last:</strong> it's explicitly the "wire it in, don't read docs cover to cover" phase, and it only makes sense once you have async (Phase 1), an API to plug into (Phase 4), and a working tool-calling loop (Phase 5) to bolt the real model onto. This is where the toy/mocked model calls in Phase 5 become real.</p>
+
+          <h3>Concepts to master</h3>
+          <ul>
+            <li><strong>SDK basics.</strong> Current SDK is <code>google-genai</code> (<code>pip install google-genai</code>, <code>from google import genai</code>). A <code>genai.Client()</code> gives you both sync and async surfaces — sync via <code>client.models.*</code>, async via <code>client.aio.models.*</code>. Use the async surface everywhere per your own standing rule.</li>
+            <li><strong>System prompts and message structure</strong> via <code>GenerateContentConfig</code> (<code>system_instruction=...</code>), and multi-turn content as a list of role-tagged <code>Content</code>/<code>Part</code> objects rather than a single string once your agent loop needs conversation history.</li>
+            <li><strong>Streaming</strong> — <code>generate_content_stream</code> (or the async equivalent) for token-by-token output; know when you actually want this (interactive UX) versus when you don't (you need the full structured JSON before you can validate it — streaming and "wait for complete, schema-validated JSON" are in tension, resolve that deliberately in your agent loop).</li>
+            <li><strong>Embeddings:</strong> <code>client.models.embed_content(model="gemini-embedding-001", contents=...)</code> — this plugs directly into your Phase 3 vector search module. Note it accepts a batch of strings in one call; know the current batch-size limit rather than assuming, and use <code>client.aio.models.embed_content</code> so embedding a batch of documents doesn't block your event loop.</li>
+            <li><strong>Embedding batching at scale</strong> — for large corpora, look at the dedicated Batch API (<code>client.batches.create_embeddings</code>) which processes asynchronously server-side and is cheaper, versus just firing many concurrent <code>embed_content</code> calls yourself with <code>gather()</code> + a semaphore (Phase 1 skill, applied for real now).</li>
+            <li><strong>Rate limits and retries.</strong> You will hit <code>429 RESOURCE_EXHAUSTED</code> in normal use, not just as an edge case — build real handling: exponential backoff with jitter, a retry cap, and surfacing a clear error after that (same discipline as Phase 5's retry logic, different failure mode).</li>
+            <li><strong>Function calling with this SDK specifically:</strong> you can pass a Python function directly and the SDK will call it automatically (automatic function calling), or declare tools manually for more control — know both exist and when manual control matters (you likely want manual control here, since you already built your own validate-and-retry loop in Phase 5 and don't want two competing retry systems).</li>
+          </ul>
+
+          <h3>Build</h3>
+          <p>Replace the mocked model in Phase 5 with real Gemini calls (ComplianceMatch is now end-to-end):</p>
+          <ul>
+            <li>Swap Phase 3's placeholder vectors for real <code>embed_content</code> output — re-run your Phase 3 edge-case tests against real embedding output shapes/dtypes to make sure nothing you assumed about the vectors breaks.</li>
+            <li>Wire Phase 5's tool-calling loop to real <code>generate_content</code> calls with your search tool declared, using <code>client.aio</code>.</li>
+            <li>Add real retry/backoff around rate limits, on top of (not instead of) your Phase 5 malformed-output retry logic — these are two different failure modes and should be handled as two different concerns.</li>
+            <li>Batch-embed a small synthetic corpus (50–100 short documents) concurrently with a bounded semaphore, and compare wall-clock time against doing it one-by-one — same benchmarking instinct as Phase 3, now against a real network-bound API.</li>
+          </ul>
+
+          <h3>Test</h3>
+          <ul>
+            <li>Mock <code>client.aio.models.generate_content</code> and <code>embed_content</code> at the SDK boundary (don't hit the real API in your test suite — same principle as Phase 5).</li>
+            <li>Test your rate-limit backoff actually backs off (assert increasing delay across retries, or at minimum assert the retry count and cap).</li>
+            <li>Test the embedding-batching path handles a partial batch failure (e.g., one malformed input in a batch of 50) without losing the other 49 results.</li>
+          </ul>
+
+          <div class="dod"><span class="tag">Definition of done</span>ComplianceMatch runs end-to-end: a query comes in via FastAPI → the model decides to call your search tool → your vectorized top-k runs against real Gemini embeddings → a schema-validated, retry-hardened response goes back out — and you can explain every async boundary in that chain and why it's <code>await</code>ed instead of blocking.</div>
+
+          <h3>Resources</h3>
+          <ul class="resources">
+            <li><code>googleapis/python-genai</code> on GitHub (README + <code>docs/</code>) — this is the actual source of truth, more reliable than any tutorial, since this SDK has moved fast</li>
+            <li>Gemini API docs: Embeddings, Batch API, Rate limits (<code>ai.google.dev</code>)</li>
+          </ul>
+        </div>
+      </section>
+
+    </div><!-- /thread-wrap -->
+
+    <section id="integration">
+      <h2>Integration week — make it one thing, not six things</h2>
+      <div class="card">
+        <ul>
+          <li><strong>End-to-end test:</strong> a realistic query through the full stack, including at least one deliberately malformed record in the corpus (bad precision, duplicate ID) to prove your Phase 3 edge-case handling survives contact with the real system.</li>
+          <li><strong>A load-ish check:</strong> fire 20 concurrent requests at your FastAPI service with <code>gather()</code> and confirm nothing serializes unexpectedly — this is the moment Phase 1's lesson either holds up under your own code or reveals a blocking call you missed.</li>
+          <li>Write a short <code>README.md</code> for the repo: architecture diagram (even a simple ASCII one), what each module does, and — importantly for the networking track below — the benchmark numbers you collected in Phases 3 and 6.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pacing">
+      <h2>Suggested pacing <span style="color:var(--muted);font-weight:400;font-size:16px;">(flexible — go slower on anything that doesn't click)</span></h2>
+      <table>
+        <thead><tr><th>Weeks</th><th>Focus</th></tr></thead>
+        <tbody>
+          <tr><td class="weeks">1</td><td>Phase 1 (async) + Phase 2 baseline (pytest)</td></tr>
+          <tr><td class="weeks">2–3</td><td>Phase 3 (NumPy vector search)</td></tr>
+          <tr><td class="weeks">4–5</td><td>Phase 4 (FastAPI + Pydantic)</td></tr>
+          <tr><td class="weeks">6–7</td><td>Phase 5 (tool-calling / structured output)</td></tr>
+          <tr><td class="weeks">8–9</td><td>Phase 6 (Gemini)</td></tr>
+          <tr><td class="weeks">10</td><td>Integration week + write-up</td></tr>
+        </tbody>
+      </table>
+      <p class="dim" style="margin-top:14px;font-size:14.5px;">Testing discipline (Phase 2) isn't a week — it's applied inside every phase above from week 1 onward.</p>
+    </section>
+
+    <section id="networking">
+      <h2>Networking track — runs the entire time, not after</h2>
+      <div class="card">
+        <p>The single biggest mistake people make here is treating networking as something you do <em>after</em> the roadmap, once you "have something to show." Wrong — the roadmap <em>is</em> the content, if you publish as you go instead of at the end.</p>
+      </div>
+
+      <h3>Setup — do this in week 1, once</h3>
+      <div class="card">
+        <ul>
+          <li><strong>GitHub:</strong> one public repo for ComplianceMatch, pinned on your profile, with commits from week 1 onward (a repo that appears fully-formed in week 10 reads very differently from one with visible progression — the history is the portfolio).</li>
+          <li><strong>LinkedIn:</strong> headline and About section updated to something concrete and specific ("Building an async retrieval agent — currently on vectorized search / FastAPI / tool-calling") rather than generic "aspiring AI engineer." Specific reads as credible; generic reads as unconfident.</li>
+          <li>Pick one primary platform for public updates (LinkedIn is usually higher-leverage than X/Twitter for referrals specifically, since recruiters and engineers at target companies are more likely to see it there) — don't split effort thin across three platforms.</li>
+        </ul>
+      </div>
+
+      <h3>Content cadence — one piece of content per phase, mapped to what you actually built</h3>
+      <div class="card">
+        <p class="dim">This is the part people get wrong: don't post "learned async today." Post the specific, numbers-backed thing:</p>
+        <ul class="post-list">
+          <li><span class="p-tag">Ph 1</span><span>A short post on the sequential-vs-<code>gather()</code> timing gap, with your actual numbers, and the one blocking-call bug you found in your own code. Concrete bugs are more interesting than concrete successes.</span></li>
+          <li><span class="p-tag">Ph 3</span><span>The naive-loop-vs-vectorized benchmark chart. This is your best post — cosine similarity from scratch is a genuinely respected exercise, and a real chart beats a claim every time.</span></li>
+          <li><span class="p-tag">Ph 4</span><span>A short writeup on one specific FastAPI decision (why <code>Depends()</code> over a global, or your <code>HTTPException</code> error-shape design) — pick the one thing you had to think hardest about, not a tour of the whole framework.</span></li>
+          <li><span class="p-tag">Ph 5</span><span>The malformed-tool-call retry loop — this is a great "here's how I handle the thing everyone glosses over" post, because most tutorials skip exactly this.</span></li>
+          <li><span class="p-tag">Ph 6</span><span>End-to-end latency/cost numbers for the real Gemini integration, plus a link to the full repo.</span></li>
+        </ul>
+        <p style="margin-top:14px;">Five posts, each tied to something real you built and can defend in a conversation — that's a stronger signal than twenty generic "Day 12 of learning AI" posts, and far less effort to sustain.</p>
+      </div>
+
+      <h3>Communities — join in week 1, participate weekly, don't just lurk</h3>
+      <div class="card">
+        <ul>
+          <li>A general AI-engineering community with active Slack/Discord (e.g., MLOps Community, Latent Space's Discord) — read before you post, then answer one question a week you actually know the answer to. Answering visibly is a much stronger signal than asking.</li>
+          <li>The FastAPI and <code>python-genai</code> GitHub Discussions/Issues — genuinely useful when you hit a real bug in Phase 4 or 6, and a natural, non-cringe way to have your name show up next to maintainers and other engineers.</li>
+          <li>A local (or nearest-major-hub) Python/PyData/AI meetup via meetup.com — one in-person or virtual talk attended per month is enough; the goal is a handful of recurring faces, not a large one-time audience.</li>
+        </ul>
+      </div>
+
+      <h3>Open-source contribution ladder <span style="color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0;">(start week 4–5, once you have real FastAPI/pytest exposure)</span></h3>
+      <div class="card">
+        <p>Start small: a docs fix or a clearly-scoped "good first issue" in a library you're actually using (FastAPI, <code>python-genai</code>, <code>pytest-asyncio</code>). This isn't about the contribution's size — it's a legitimate, low-friction reason to interact with a maintainer, some of whom work at or are connected to companies you'd want a referral into. One merged PR, however small, is worth more on a resume and in a conversation than "familiar with FastAPI" as a bullet point.</p>
+      </div>
+
+      <h3>Informational interviews <span style="color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0;">(start once you have 2+ published posts, roughly week 3–4 onward)</span></h3>
+      <div class="card">
+        <ul>
+          <li>Build a short target list: 10–15 people at companies you're interested in, doing work adjacent to what you're building (retrieval, agents, backend). LinkedIn search + "2nd degree connection" filter is usually enough.</li>
+          <li>Ask for 15–20 minutes, be specific about why ("I saw you work on X, I'm building something similar and hit Y") — reference your actual repo/post, don't send a generic "can we connect" message.</li>
+          <li>Ask about their stack and problems, not for a referral, on the first conversation. The ask comes later, once there's an actual relationship — a cold "can you refer me" from a stranger is easy to ignore and easy to say no to; a specific ask from someone who's had two genuine conversations with you is a different thing entirely.</li>
+        </ul>
+      </div>
+
+      <h3>The referral ask itself, when it's time</h3>
+      <div class="card">
+        <p>Only ask after real interaction (an informational interview, a helpful open-source exchange, sustained engagement in a community). Come with a specific role link and your repo link ready — make it a five-minute favor for them, not a research project. A short, direct message works better than an elaborate one: what role, why you're a fit in one sentence, and the concrete thing you built that's relevant, linked.</p>
+      </div>
+
+      <h3>Timing check</h3>
+      <div class="card">
+        <p>By the time you finish the roadmap (~week 10), you should have: 5 public technical posts tied to real work, one merged open-source PR, a handful of recurring community interactions, and 3–5 informational conversations already had — at which point a referral ask is a natural next message, not a cold one.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+<footer>Async-First AI Engineer Roadmap · Capstone: ComplianceMatch · rendered from the original document</footer>
+
+<script>
+  // Highlight active TOC link on scroll
+  const links = document.querySelectorAll('.toc a[href^="#"]');
+  const targets = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  function onScroll(){
+    let current = null;
+    for(const t of targets){
+      const r = t.getBoundingClientRect();
+      if(r.top <= 120) current = t;
+    }
+    links.forEach(l=>{
+      const match = current && l.getAttribute('href') === '#'+current.id;
+      l.style.color = match ? 'var(--text)' : '';
+      l.style.borderLeftColor = match ? 'var(--accent)' : 'transparent';
+      l.style.background = match ? 'var(--surface)' : '';
+    });
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+</body>
+</html>
