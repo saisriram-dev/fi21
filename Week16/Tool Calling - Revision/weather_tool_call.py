@@ -23,7 +23,7 @@ decl = types.FunctionDeclaration(
 tools = [types.Tool(function_declarations=[decl])]
 
 contents = [
-    types.Content(role="user", parts=[types.Part.from_text("Weather in Paris?")])
+    types.Content(role="user", parts=[types.Part.from_text(text="Weather in Paris?")])
 ]
 
 while True:
